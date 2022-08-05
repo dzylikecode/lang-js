@@ -1,3 +1,5 @@
 - javascript-info
+  - [封面](JS-info/README.md)
   - [简介](JS-info/ch01/README.md)
+  - [基础知识](JS-info/ch02/README.md)
 - [task](task.md)
