@@ -94,6 +94,8 @@ js 为动态类型编程语言
 
 类型是为了类型转化, 进而进行对应的操作
 
+- 7 种原始类型和 1 种引用类型
+
 ### number
 
 - 特殊数值
@@ -128,6 +130,12 @@ true 或 false
 代表未定义, 未赋值
 
 > 通常，使用 null 将一个“空”或者“未知”的值写入变量中，而 undefined 则保留作为未进行初始化的事物的默认初始值
+
+```JavaScript
+let value;
+
+alert(value == undefined); // true
+```
 
 ### object 和 symbol
 

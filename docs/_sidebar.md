@@ -3,4 +3,5 @@
   - [简介](JS-info/ch01/README.md)
   - [基础知识](JS-info/ch02/README.md)
   - [代码质量](JS-info/ch03/README.md)
+  - [对象基础](JS-info/ch04/README.md)
 - [task](task.md)
