@@ -5,4 +5,6 @@
   - [代码质量](JS-info/ch03/README.md)
   - [对象基础](JS-info/ch04/README.md)
   - [数据类型](JS-info/ch05/README.md)
+  - [函数进阶](JS-info/ch06/README.md)
+  - [对象属性配置](JS-info/ch07/README.md)
 - [task](task.md)
