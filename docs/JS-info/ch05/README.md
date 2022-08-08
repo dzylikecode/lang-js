@@ -790,7 +790,7 @@ alert(title); // Consul
 - 储存剩余的元素
 
   - `let [name1, name2, ...rest] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];`
-  - `rest` 是一个数组
+  - `rest` 是一个数组, 可以使用任意别名, 不一定是`rest`
 
 ### 对象解构
 
