@@ -9,4 +9,5 @@
   - [对象属性配置](JS-info/ch07/README.md)
   - [原型-继承](JS-info/ch08/README.md)
   - [类](JS-info/ch09/README.md)
+  - [错误处理](JS-info/ch10/README.md)
 - [task](task.md)
