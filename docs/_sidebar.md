@@ -13,4 +13,5 @@
 - phaser
   - [封面](phaser/README.md)
   - [000](phaser/lab000/README.md)
+  - [001](phaser/lab001/README.md)
 - [task](task.md)
