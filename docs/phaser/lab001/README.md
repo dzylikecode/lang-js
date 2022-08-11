@@ -1,5 +1,7 @@
 # basic tutorial
 
+- 参见:[Phaser 3 入门实例教程](http://phaser.io/tutorials/making-your-first-phaser-3-game-chinese)
+
 ## config
 
 属性 type 可以是 Phaser.CANVAS，或者 Phaser.WEBGL，或者 Phaser.AUTO。这是你要给你的游戏使用的渲染环境（context）。推荐值是 Phaser.AUTO，它将自动尝试使用 WebGL，如果浏览器或设备不支持，它将回退为 Canvas。Phaser 生成的画布元素（canvas element）将径直添加到文档中调用脚本的那个节点上，不过也可以在游戏配置中指定一个父容器，如果你需要的话。

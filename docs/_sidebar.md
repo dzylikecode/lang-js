@@ -10,4 +10,7 @@
   - [原型-继承](JS-info/ch08/README.md)
   - [类](JS-info/ch09/README.md)
   - [错误处理](JS-info/ch10/README.md)
+- phaser
+  - [封面](phaser/README.md)
+  - [000](phaser/lab000/README.md)
 - [task](task.md)
