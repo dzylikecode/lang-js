@@ -137,7 +137,7 @@
 
 - 类的结构
 
-  ![](assets/animal-rabbit-extends.svg)
+  ![](assets/2022-08-13-21-02-59.png)
 
   `prototype`: 挂载方法
 
@@ -189,7 +189,7 @@
 
   采用`this` 无法实现, 会陷入死循环
 
-  ![](assets/this-super-loop.svg)
+  ![](assets/2022-08-13-21-03-40.png)
 
   方法有`[[HomeObject]]`属性, 记录了绑定的对象, 然后`super`会通过它来解析, 而不是使用 this
 
@@ -233,7 +233,7 @@
 
 - 结构
 
-  ![](assets/animal-rabbit-static.svg)
+  ![](assets/2022-08-13-21-04-08.png)
 
 - [案例](https://zh.javascript.info/static-properties-methods#lei-kuo-zhan-zi-dui-xiang)
 
@@ -358,7 +358,7 @@
 
   `super`不会受到影响
 
-  ![](assets/mixin-inheritance.svg)
+  ![](assets/2022-08-13-21-05-05.png)
 
 - [经典案例](https://zh.javascript.info/mixins#eventmixin)
 

@@ -46,3 +46,51 @@
 - 模块是完全加载 html 后执行
 
   所以任意地方的元素, 模块都可见
+
+- [构建工具](https://zh.javascript.info/modules-intro#gou-jian-gong-ju)
+
+  webpack
+
+## 导入和导出
+
+- 导出`class/function`推荐不要分号
+- 导出方式
+
+  - 声明的时候导出
+  - 以变量列表的形式集体导出
+
+- 导入
+
+  - 列表形式导入
+  - 所有内容导入为一个对象
+
+    `import * as obj from './say.js'`
+
+- `as`可以重命名
+
+- `default`一个文件只有一个
+
+  导入的时候, 不需要列表形式
+
+- 重新导出 => 转发
+
+  使用`from`即可
+
+  - 转发默认
+
+    `export {default as User} from './say.js'`
+
+  - 全部转发, 包括默认
+
+    ```js
+    export * from "./user.js"; // 重新导出命名的导出
+    export { default } from "./user.js"; // 重新导出默认的导出
+    ```
+
+## 动态导入
+
+- `import(module_path)`
+
+  返回的是 `promise`
+
+  所以要使用`then`或者`await`

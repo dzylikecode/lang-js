@@ -1,6 +1,7 @@
 # javascript
 
 - [The Modern JavaScript Tutorial](https://javascript.info/)
+- [中文版](https://zh.javascript.info/)
 
 ## 哲学
 
@@ -17,3 +18,5 @@
 - 异常处理
 
   和代码一样, 像函数一样, 处理本层级的异常, 合并低级异常, 抛出给上级
+
+- 一个模块只做一件事
