@@ -56,6 +56,4 @@ let emitter = particles.createEmitter({
 
   - [ ] 添加一个 scrollbar 来改变大小玩玩
 
-## 代码
-
-[](code.html ":include :type=code html")
+## reference

@@ -146,6 +146,4 @@
 
   和星星类似, 效果相反
 
-## 代码
-
-[](code.html ":include :type=code html")
+## reference

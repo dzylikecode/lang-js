@@ -1,8 +1,5 @@
 # javascript
 
-- [The Modern JavaScript Tutorial](https://javascript.info/)
-- [中文版](https://zh.javascript.info/)
-
 ## 哲学
 
 不是要评判编程语言的这个设计是好是坏。而是要了解怎样使用它，如何趋利避害
@@ -21,6 +18,7 @@
 
 - 一个模块只做一件事
 
-## 文件夹
+## reference
 
-- bro => browser
+- [The Modern JavaScript Tutorial](https://javascript.info/)
+- [中文版](https://zh.javascript.info/)
