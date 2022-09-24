@@ -1,7 +1,0 @@
-- [home](https://dzylikecode.github.io/#/)
-- [intro](/)
-- [JS](JavaScript/)
-- [browser](browser/)
-- [nodeJS](nodeJS/)
-- lib
-  - [phaser](phaser/)

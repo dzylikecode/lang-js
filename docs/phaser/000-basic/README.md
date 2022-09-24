@@ -2,7 +2,7 @@
 
 ## 效果
 
-[](https://github.com/dzylikecode/lang-js/blob/master/phaser/000-basic/index.html ":include :type=iframe width=800px height=600px")
+[](../../../phaser/000-basic/index.html ":include :type=iframe")
 
 ## 素材
 

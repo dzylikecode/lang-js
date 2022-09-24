@@ -2,7 +2,7 @@
 
 ## 展示
 
-[](https://github.com/dzylikecode/lang-js/blob/master/phaser/001-simple-game/index.html ":include :type=iframe width=800px height=600px")
+[](../../../phaser/001-simple-game/index.html ":include :type=iframe")
 
 ## 教程
 

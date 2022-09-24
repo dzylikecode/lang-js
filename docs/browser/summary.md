@@ -1,1 +1,1 @@
-- [DOM](browser/ch01/README.md)
+- [DOM](docs/browser/ch01/README.md)
