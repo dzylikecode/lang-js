@@ -2,7 +2,7 @@
 
 ## 效果
 
-[](code.html ":include :type=iframe width=800px height=600px")
+[](../../../phaser/000-basic/index.html ":include :type=iframe")
 
 ## 素材
 
@@ -56,6 +56,6 @@ let emitter = particles.createEmitter({
 
   - [ ] 添加一个 scrollbar 来改变大小玩玩
 
-## 代码
+## reference
 
-[](code.html ":include :type=code html")
+- [code](https://github.com/dzylikecode/lang-js/blob/master/phaser/000-basic/main.js)

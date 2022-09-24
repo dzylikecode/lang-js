@@ -122,3 +122,17 @@
     ```
 
     !> 不推荐, 容易与命名冲突, 而且不容易分析 js 中变量的来源
+
+- 通过 CSS 选择器
+
+  [CSS 选择器](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)
+
+  - 函数 `document.querySelectorAll(css_selector)`
+
+    返回的是所有匹配的列表
+
+    返回第一个, `document.querySelector()`
+
+  > getElementByTagName 而不是 getElementsByTagName
+
+!> `getElementsBy*` 方法都会返回一个 实时的(live) 集合, 即如果有元素添加, 会更新; 而 `querySelectorAll` 返回的是一个静态的集合, 即如果有元素添加, 不会更新, 除非重新使用 `querySelectorAll` 获取

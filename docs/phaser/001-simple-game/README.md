@@ -2,7 +2,7 @@
 
 ## 展示
 
-[](code.html ":include :type=iframe width=800px height=600px")
+[](../../../phaser/001-simple-game/index.html ":include :type=iframe")
 
 ## 教程
 
@@ -146,6 +146,6 @@
 
   和星星类似, 效果相反
 
-## 代码
+## reference
 
-[](code.html ":include :type=code html")
+- [code](https://github.com/dzylikecode/lang-js/blob/master/phaser/001-simple-game/main.js)
