@@ -2,7 +2,7 @@
 
 ## 展示
 
-[](code.html ":include :type=iframe width=800px height=600px")
+[](https://github.com/dzylikecode/lang-js/blob/master/phaser/001-simple-game/index.html ":include :type=iframe width=800px height=600px")
 
 ## 教程
 
@@ -147,3 +147,5 @@
   和星星类似, 效果相反
 
 ## reference
+
+- [code](https://github.com/dzylikecode/lang-js/blob/master/phaser/001-simple-game/main.js)
