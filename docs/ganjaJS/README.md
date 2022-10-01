@@ -4,7 +4,7 @@ Geometric Algebra
 
 ## reference
 
-- [repo](https://github.com/enkimute/ganja.js)
+- repo:[ganja.js](https://github.com/enkimute/ganja.js)
 - [tutorial](https://observablehq.com/@enkimute?tab=notebooks&type=public)
 - [几何代数](<https://math.libretexts.org/Bookshelves/Abstract_and_Geometric_Algebra/Introduction_to_Algebraic_Structures_(Denton)/03%3A_Groups_II/3.02%3A_Visualizing_Groups-_Cayley_Graphs>)
 - [Dual Numbers & Automatic Differentiation](https://blog.demofox.org/2014/12/30/dual-numbers-automatic-differentiation/)
