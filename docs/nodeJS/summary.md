@@ -1,2 +1,2 @@
 - [intro](docs/nodeJS/README.md)
-- [basic](docs/nodeJS/basic.md)
+- [basic](docs/nodeJS/basic/basic.md)
