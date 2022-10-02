@@ -14,3 +14,4 @@
 
 - [《Node.js 包教不包会》 -- by alsotang](https://github.com/alsotang/node-lessons)
 - [《深入理解 Node.js：核心思想与源码分析》](https://yjhjstz.gitbooks.io/deep-into-node/content/)
+- [Node.js Tutorial | Node.js Tutorial For Beginners | Learn Node.js | NodeJS Tutorial | Simplilearn](https://www.youtube.com/watch?v=CELj-DCB0go)
