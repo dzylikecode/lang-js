@@ -123,16 +123,140 @@
 
     !> 不推荐, 容易与命名冲突, 而且不容易分析 js 中变量的来源
 
-- 通过 CSS 选择器
+### 通过 CSS 选择器
 
-  [CSS 选择器](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)
+[CSS 选择器](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)
 
-  - 函数 `document.querySelectorAll(css_selector)`
+- 函数 `document.querySelectorAll(css_selector)`
 
-    返回的是所有匹配的列表
+  返回的是所有匹配的列表
 
-    返回第一个, `document.querySelector()`
+  返回第一个, `document.querySelector()`
 
-  > getElementByTagName 而不是 getElementsByTagName
+> getElementByTagName 而不是 getElementsByTagName
 
 !> `getElementsBy*` 方法都会返回一个 实时的(live) 集合, 即如果有元素添加, 会更新; 而 `querySelectorAll` 返回的是一个静态的集合, 即如果有元素添加, 不会更新, 除非重新使用 `querySelectorAll` 获取
+
+- 根据属性来选择
+
+  ```html
+  <div data-widget-name="menu">Choose the genre</div>
+  <script>
+    // 获取它
+    let elem = document.querySelector("[data-widget-name]");
+  </script>
+  ```
+
+## 节点属性
+
+每个 DOM 节点都属于相应的内建类
+
+![](assets/2022-10-19-14-54-08.png)
+
+> 给定节点的全部属性和方法都是继承链的结果
+
+### innerHTML
+
+内容
+
+将元素中的 HTML 获取为字符串形式
+
+!> “innerHTML+=” 会进行完全重写内容, see [Is it possible to append to innerHTML without destroying descendants' event listeners?](https://stackoverflow.com/questions/595808/is-it-possible-to-append-to-innerhtml-without-destroying-descendants-event-list)
+
+### outerHTML
+
+元素的完整 HTML
+
+就像 innerHTML 加上元素本身一样
+
+!> 与 `innerHTML` 不同，写入 `outerHTML` 不会改变元素。而是在 DOM 中替换它
+
+### nodeValue/data
+
+文本节点内容
+
+!> innerHTML 属性仅对元素节点有效, 对于文本节点和注释节点的访问得用这个属性
+
+### textContent
+
+纯文本
+
+仅文本，去掉所有 `<tags>`
+
+- 使用 `innerHTML`，我们将其“作为 HTML”插入，带有所有 HTML 标签
+- 使用 `textContent`，我们将其“作为文本”插入，所有符号（symbol）均按字面意义处理
+
+### hidden
+
+指定元素是否可见
+
+hidden 与 `style="display:none"` 做的是相同的事。但 hidden 写法更简洁
+
+### length
+
+子元素的个数
+
+### reference
+
+- Interface description language. (2022, May 29). In Wikipedia. https://en.wikipedia.org/wiki/Interface_description_language
+
+  DOM 类不是使用 JavaScript 来描述的，而是一种特殊的 接口描述语言（Interface description language）
+
+## 特性和属性
+
+Attributes and properties
+
+特性（attribute）—— 写在 HTML 中的内容。
+属性（property）—— DOM 对象中的内容。
+
+对于元素节点，大多数标准的 HTML 特性（attributes）会自动变成 DOM 对象的属性（properties）
+
+当浏览器解析 HTML 文本，并根据标签创建 DOM 对象时，浏览器会辨别标准的特性并以此创建 DOM 属性, 但是非标准的特性则不会
+
+对于非标准属性
+
+- elem.hasAttribute(name) —— 检查特性是否存在。
+- elem.getAttribute(name) —— 获取这个特性值。
+- elem.setAttribute(name, value) —— 设置这个特性值。
+- elem.removeAttribute(name) —— 移除这个特性。
+
+`elem.attributes` 集合是可迭代对象，该对象将所有元素的特性（标准和非标准的）作为 name 和 value 属性存储在对象中
+
+### 属性-特性同步
+
+当一个标准的特性被改变，对应的属性也会自动更新，（除了几个特例）反之亦然
+
+也有些例外，例如 input.value 只能从特性同步到属性，反过来则不行, 即 HTML -> DOM
+
+### DOM 属性是多类型的
+
+`input.checked` 属性（对于 checkbox 的）是布尔型的, 使用 getAttribute 得到的是空字符串
+
+style 特性是字符串类型的，但 style 属性是一个对象
+
+href 特性可能不同
+
+```html
+<a id="a" href="#hello">link</a>
+<script>
+  // 特性
+  alert(a.getAttribute("href")); // #hello
+
+  // 属性
+  alert(a.href); // http://site.com/page#hello 形式的完整 URL
+</script>
+```
+
+### dataset
+
+HTML 语言是在不断发展的，并且更多的特性出现在了标准中，以满足开发者的需求. 可能非标准的特性会变成标准特性, 为避免冲突存在 `data-*` 特性
+
+> 所有以 “data-” 开头的特性均被保留供程序员使用。它们可在 dataset 属性中使用
+
+- example
+
+  如果一个 elem 有一个名为 "data-about" 的特性，那么可以通过 `elem.dataset.about` 取到它
+
+  像 `data-order-state` 这样的多词特性可以以驼峰式进行调用：`dataset.orderState`
+
+## 修改文档
