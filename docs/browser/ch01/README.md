@@ -260,3 +260,245 @@ HTML 语言是在不断发展的，并且更多的特性出现在了标准中，
   像 `data-order-state` 这样的多词特性可以以驼峰式进行调用：`dataset.orderState`
 
 ## 修改文档
+
+### 创建元素
+
+- `document.createElement(tag)` -- 创建一个元素节点
+
+### 完全修改
+
+- `innerHTML`
+
+### 插入
+
+- `elem.append(...nodes or strings)` -- 在 elem 的最后插入内容
+- `elem.prepend(...nodes or strings)` -- 在 elem 的最前插入内容
+- `elem.before(...nodes or strings)` -- 在 elem 之前插入内容
+- `elem.after(...nodes or strings)` -- 在 elem 之后插入内容
+- `elem.replaceWith(...nodes or strings)` -- 替换 elem
+
+!> `string` 代表的是完全文本, 比如`<div>hello</div>` 会被当做文本插入, 而不会转化为元素
+
+对于元素`ol`
+
+![](assets/2022-10-20-12-03-49.png)
+
+### insertAdjacentHTML/Text/Element
+
+- `elem.insertAdjacentHTML(where, html)` -- 在 elem 的指定位置插入 HTML
+
+  `where` 可以是以下值:
+
+  - `"beforebegin"` -- 在 elem 之前插入内容
+  - `"afterbegin"` -- 在 elem 内部的开头插入内容
+  - `"beforeend"` -- 在 elem 内部的末尾插入内容
+  - `"afterend"` -- 在 elem 之后插入内容
+
+- `elem.insertAdjacentText(where, text)` -- 在 elem 的指定位置插入文本
+
+- `elem.insertAdjacentElement(where, elem)` -- 在 elem 的指定位置插入元素
+
+### remove
+
+- `elem.remove()` -- 删除 elem
+
+## move
+
+!> 如果我们要将一个元素 移动 到另一个地方，则无需将其从原来的位置中删除. 所有插入方法都会自动从旧位置删除该节点
+
+```html
+<div id="first">First</div>
+<div id="second">Second</div>
+<script>
+  // 无需调用 remove
+  second.after(first); // 获取 #second，并在其后面插入 #first
+</script>
+```
+
+### clone
+
+- `elem.cloneNode(boolean)` -- 复制 elem
+
+  true 时, 会复制 elem 的所有后代
+
+  false 时, 只复制 elem 本身
+
+### DocumentFragment
+
+用作来传递节点列表的包装器（wrapper）
+
+相当于一个容器, 包装了 html 内容, 是的操作 html 内容能像 dom 对象一样, 然后添加给其他的节点的时候, 只会贡献自己的内容
+
+主要是因为它上面有一些概念，例如 template 元素
+
+### 旧的插入与移除
+
+- `elem.appendChild(node)` -- 在 elem 的最后插入一个节点
+- `elem.insertBefore(node, nextSibling)` -- 在 elem 的指定位置插入一个节点
+- `elem.replaceChild(node, oldChild)` -- 替换 elem 的子节点
+- `elem.removeChild(node)` -- 删除 elem 的一个节点
+
+### 练习
+
+- 移除列表中的子节点
+
+  ```js
+  function clear(elem) {
+    while (elem.firstChild) {
+      elem.firstChild.remove();
+    }
+  }
+  ```
+
+- [为什么留下 "aaa"？](https://zh.javascript.info/modifying-document#wei-shi-mo-liu-xia-aaa)
+
+## 样式和类
+
+访问 style 属性
+
+- `elem.style` -- 读取和设置元素的样式
+
+  读取样式时, 返回的是一个字符串, 但是设置样式时, 可以使用驼峰式
+
+  ```js
+  elem.style.width = "100px";
+  elem.style.backgroundColor = "red";
+  ```
+
+### className 和 classList
+
+`elem.className` 对应于 "class" attribute
+
+`elem.classList` 特殊的对象
+
+针对 html 里面多个类
+
+```html
+<body class="main page">
+  <script>
+    // 添加一个 class
+    // 原本是 main 和 page 类
+    document.body.classList.add("article");
+
+    alert(document.body.className); // main page article
+  </script>
+</body>
+```
+
+- `elem.classList.add/remove/toggle("class")` -- 添加/删除/切换类
+
+### 元素样式
+
+对于多词（multi-word）属性，使用驼峰式 camelCase
+
+example:
+
+```js
+background-color  => elem.style.backgroundColor
+z-index           => elem.style.zIndex
+border-left-width => elem.style.borderLeftWidth
+```
+
+前缀
+
+```js
+-moz-border-radius => elem.style.MozBorderRadius
+-ms-border-radius  => elem.style.MsBorderRadius
+```
+
+> 连字符 `-` 表示大写
+
+### 重置样式属性
+
+如果我们将 `style.display` 设置为空字符串，那么浏览器通常会应用 CSS 类以及内建样式，就好像根本没有这样的 `style.display` 属性一样
+
+或者 `elem.style.removeProperty('style property')`
+
+!> 注意单位, 不应该将 `elem.style.top` 设置为 `10`，而应将其设置为 `10px`
+
+### getComputedStyle
+
+style 属性仅对 "style" 特性（attribute）值起作用，而没有任何 CSS 级联（cascade）. 因此我们无法使用 `elem.style` 读取来自 CSS 类的任何内容
+
+`getComputedStyle(elem, [pseudo])` -- 返回一个对象，其中包含所有计算后的样式
+
+- `pseudo`
+
+  伪元素（如果需要），例如 ::before。空字符串或无参数则意味着元素本身
+
+!>JavaScript 看不到 `:visited` 所应用的样式
+
+## 元素大小和滚动
+
+!> 不要从 CSS 中获取 width/height
+
+## Window 大小和滚动
+
+### 窗口的 width/height
+
+clientWidth/clientHeight 会提供没有滚动条（减去它）的 width/height。换句话说，它们返回的是可用于内容的文档的可见部分的 width/height
+
+!> window.innerWidth/innerHeight 包含了滚动条
+
+### 文档的 width/height
+
+```js
+let scrollHeight = Math.max(
+  document.body.scrollHeight,
+  document.documentElement.scrollHeight,
+  document.body.offsetHeight,
+  document.documentElement.offsetHeight,
+  document.body.clientHeight,
+  document.documentElement.clientHeight
+);
+```
+
+### 获得当前滚动
+
+使用 `document.documentElement.scrollLeft/scrollTop`
+
+可以从 `window.pageXOffset/pageYOffset` 中获取页面当前滚动信息
+
+- `window.pageXOffset` 是 `window.scrollX` 的别名
+- `window.pageYOffset` 是 `window.scrollY` 的别名
+
+### 滚动
+
+!> 必须在 DOM 完全构建好之后才能通过 JavaScript 滚动页面。例如，如果我们尝试通过 <head> 中的脚本滚动页面，它将无法正常工作
+
+- 绝对值
+
+  ```js
+  window.scrollTo(pageX, pageY);
+  window.scroll(x, y);
+  ```
+
+- 相对值
+
+  相对于当前滚动位置
+
+  ```js
+  window.scrollBy(x, y);
+  ```
+
+- `scrollIntoView`
+
+  - `top=true`（默认值），页面滚动，使 elem 出现在窗口顶部。元素的上边缘将与窗口顶部对齐
+
+    类似于点击了 anchor
+
+  - top=false，页面滚动，使 elem 出现在窗口底部。元素的底部边缘将与窗口底部对齐
+
+### 禁止滚动
+
+- `document.body.style.overflow = "hidden"`
+
+  禁止滚动
+
+- `document.body.style.overflow = ""`
+
+  恢复
+
+  允许滚动
+
+## 坐标
