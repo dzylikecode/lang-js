@@ -502,3 +502,29 @@ let scrollHeight = Math.max(
   允许滚动
 
 ## 坐标
+
+- 相对于窗口 -- 类似于 position:fixed，从窗口的顶部/左侧边缘计算得出
+
+  我们将这些坐标表示为 clientX/clientY
+
+- 相对于文档 -- 与文档根（document root）中的 position:absolute 类似，从文档的顶部/左侧边缘计算得出
+
+  我们将它们表示为 pageX/pageY
+
+![](assets/2022-10-21-09-50-26.png)
+
+### 元素坐标
+
+`getBoundingClientRect()`
+
+主要的 DOMRect 属性：
+
+- x/y -- 矩形原点相对于窗口的 X/Y 坐标
+- width/height -- 矩形的 width/height（可以为负）
+
+派生（derived）属性：
+
+- top/bottom -- 顶部/底部矩形边缘的 Y 坐标
+- left/right -- 左/右矩形边缘的 X 坐标
+
+### elementFromPoint(x, y)
