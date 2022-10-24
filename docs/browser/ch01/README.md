@@ -528,3 +528,18 @@ let scrollHeight = Math.max(
 - left/right -- 左/右矩形边缘的 X 坐标
 
 ### elementFromPoint(x, y)
+
+返回在窗口坐标 (x, y) 处嵌套最多（the most nested）的元素
+
+!> 只对在可见区域内的坐标 (x,y) 起作用
+
+### 用于 “fixed” 定位
+
+fixed, 相当于固定在 window 的相对位置, 而不是 document 的相对位置
+
+### 文档坐标
+
+窗口坐标对应于 `position:fixed`，而文档坐标与顶部的 `position:absolute` 类似
+
+- pageY = clientY + 文档的垂直滚动出的部分的高度
+- pageX = clientX + 文档的水平滚动出的部分的宽度
