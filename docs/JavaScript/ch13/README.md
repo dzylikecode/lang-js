@@ -49,11 +49,136 @@
 
   所以任意地方的元素, 模块都可见
 
+  也就是常规的 script 会比它先执行
+
+  ```html
+  <script>
+    let game;
+  </script>
+  <script type="module">
+    import { Game } from "./game.js";
+    game = new Game();
+    game.init();
+  </script>
+  <script>
+    game.run(); // 会比module先执行, 此时game还没有初始化
+  </script>
+  ```
+
+  把一些常规脚本也变成 module 能保证相应的执行顺序
+
+  ```html
+  <script>
+    let game;
+  </script>
+  <script type="module">
+    import { Game } from "./game.js";
+    game = new Game();
+    game.init();
+  </script>
+  <script type="module">
+    game.run();
+  </script>
+  ```
+
 - [构建工具](https://zh.javascript.info/modules-intro#gou-jian-gong-ju)
 
   webpack
 
 ## 导入和导出
+
+### 变量
+
+```js
+// export an array
+export let months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+// export a constant
+export const MODULES_BECAME_STANDARD_YEAR = 2015;
+
+// export a object
+export let user = {
+  name: "John",
+};
+```
+
+## 类型
+
+```js
+// export a class
+export class User {
+  constructor(name) {
+    this.name = name;
+  }
+}
+```
+
+## 函数
+
+```js
+export function sayHi(user) {
+  alert(`Hello, ${user}!`);
+} // no ; at the end
+```
+
+## 整体
+
+将各个一次性导出/导入与分开来导出/导入是一致的, 其实也就是将整个文件看作一个对象
+
+```js
+export { sayHi, sayBye }; // a list of exported variables
+```
+
+```js
+import * as say from "./say.js";
+```
+
+## 解包
+
+```js
+import { sayHi, sayBye } from "./say.js";
+```
+
+## 重命名
+
+```js
+export { sayHi as hi, sayBye as bye };
+import { sayHi as hi, sayBye as bye } from "./say.js";
+```
+
+## default
+
+lib 对象有一个属性`default`
+
+```js
+export default class User {...}
+export {sayHi as default};
+```
+
+```js
+import {default as User, sayHi} from './user.js';
+import User from ...
+import * as user from './user.js';
+let User = user.default; // the default export
+```
+
+!> `import User from ...` 是得到`default`而不是整个`lib`
+
+## 重定向
+
+```js
+export { default } from "./user.js"; // to re-export the default export
+```
 
 - 导出`class/function`推荐不要分号
 - 导出方式

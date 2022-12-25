@@ -282,4 +282,44 @@ let promise = new Promise(function (resolve, reject) {
 
   - await 只要对象形似`thenables`
 
+    只要对面能有 then 方法, 得到的结果就是 then 接受的参数
+
   > 可以看作出了一个 promise, 那么它就是微任务, 想象成是一个新的线程, 后续的代码会立即执行, 而不会等待线程执行完成结果
+
+### 应用
+
+- 使用 await 得到返回结果
+
+  ```js
+  async function compress(fileName) {
+    return await image.compress(fileName).then((file) => {
+      if (fs.existSync(file)) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
+  ```
+
+  await 会等待返回结果, 等待返回 true 还是 false
+
+- 将一些异步转化为 await 形式, 通过 promise 构造
+
+  ```js
+  async function executeCommamd() {
+    return new promise((resolve) => {
+      spawn(command)
+        .on("close", () => resolve(true))
+        .on("error", () => resolve(false));
+    });
+  }
+  ```
+
+  await 会等待 resolve(其实也就相当于进入 then)
+
+### reference
+
+- [Return multiple variables on async/await](https://stackoverflow.com/questions/46090163/return-multiple-variables-on-async-await)
+
+  You'd better return an array.

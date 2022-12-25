@@ -155,42 +155,43 @@
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <!-- add mocha css, to show results -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.css">
-  <!-- add mocha framework code -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.js"></script>
-  <script>
-    mocha.setup('bdd'); // minimal setup
-  </script>
-  <!-- add chai -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.js"></script>
-  <script>
-    // chai has a lot of stuff, let's make assert global
-    let assert = chai.assert;
-  </script>
-</head>
+  <head>
+    <!-- add mocha css, to show results -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.css"
+    />
+    <!-- add mocha framework code -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.js"></script>
+    <script>
+      mocha.setup("bdd"); // minimal setup
+    </script>
+    <!-- add chai -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.js"></script>
+    <script>
+      // chai has a lot of stuff, let's make assert global
+      let assert = chai.assert;
+    </script>
+  </head>
 
-<body>
+  <body>
+    <script>
+      function pow(x, n) {
+        /* function code is to be written, empty now */
+      }
+    </script>
 
-  <script>
-    function pow(x, n) {
-      /* function code is to be written, empty now */
-    }
-  </script>
+    <!-- the script with tests (describe, it...) -->
+    <script src="test.js"></script>
 
-  <!-- the script with tests (describe, it...) -->
-  <script src="test.js"></script>
+    <!-- the element with id="mocha" will contain test results -->
+    <div id="mocha"></div>
 
-  <!-- the element with id="mocha" will contain test results -->
-  <div id="mocha"></div>
-
-  <!-- run tests! -->
-  <script>
-    mocha.run();
-  </script>
-</body>
-
+    <!-- run tests! -->
+    <script>
+      mocha.run();
+    </script>
+  </body>
 </html>
 ```
 
@@ -201,6 +202,12 @@
   - `test.js` => 测试代码
   - `id = "mocha"` => 测试结果
   - `mocha.run()` => 运行测试
+
+### reference
+
+- [使用 Mocha 进行自动化测试](https://zh.javascript.info/testing-mocha)
+- [Getting Started with Node.js and Mocha](https://semaphoreci.com/community/tutorials/getting-started-with-node-js-and-mocha)
+- [What is the role of describe() in Mocha?](https://stackoverflow.com/questions/19298118/what-is-the-role-of-describe-in-mocha)
 
 ## Polyfill 和转译器
 
