@@ -1,8 +1,23 @@
 # javascript
 
+## hello world
+
+<div
+  data-runkit
+  data-runkit-evaluate-on-load="true"
+  data-runkit-gutter-style="none"
+  data-runkit-node-version="18"
+>
+
+```javascript
+console.log("Hello, world!");
+```
+
+</div>
+
 ## preview
 
-<div data-runkit>
+<div data-runkit data-runkit-evaluate-on-load="true">
 
 ```javascript
 var R = require("ramda");
@@ -45,6 +60,36 @@ d3Graph(nodes, links);
   和代码一样, 像函数一样, 处理本层级的异常, 合并低级异常, 抛出给上级
 
 - 一个模块只做一件事
+
+---
+
+清楚这么语言能做什么, 不能做什么
+
+如 js 的同源策略
+
+## 常识
+
+V8 —— Chrome、Opera 和 Edge 中的 JavaScript 引擎
+
+SpiderMonkey —— Firefox 中的 JavaScript 引擎
+
+> 如果“V8 支持某个功能”，那么我们可以认为这个功能大概能在 Chrome、Opera 和 Edge 中正常运行
+
+- 同源策略
+
+- js 哲学
+
+  简单的事, 简单地完成
+
+- 上层语言
+
+  - Brython
+
+## 手册与规范
+
+- MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
+
+- 推荐搜索方式: `MDN [关键字]`
 
 ## reference
 
