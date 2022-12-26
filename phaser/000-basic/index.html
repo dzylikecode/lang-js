@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="https://cdn.jsdelivr.net/npm/phaser@latest/dist/phaser-arcade-physics.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "phaser": "../lib/phaser.js"
+        }
+      }
+    </script>
   </head>
   <body>
     <script type="module" src="./main.js"></script>

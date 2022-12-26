@@ -4,6 +4,19 @@
 
 - JSDoc: https://jsdoc.app/index.html
 
+---
+
+bind this
+
+```js
+/**
+ * @this {Phaser.Scene}
+ */
+function preload() {
+  this.load.image("logo", "assets/logo.png");
+}
+```
+
 ### 命名规则
 
 定义名字应该如一个概念一样清晰

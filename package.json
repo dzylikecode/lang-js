@@ -21,5 +21,8 @@
   "homepage": "https://github.com/dzylikecode/lang-js#readme",
   "devDependencies": {
     "eslint": "^8.30.0"
+  },
+  "dependencies": {
+    "phaser": "^3.55.2"
   }
 }

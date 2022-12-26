@@ -1,3 +1,5 @@
+import Phaser from "phaser";
+
 var config = {
   type: Phaser.AUTO,
   width: 800,
@@ -25,7 +27,7 @@ var score = 0;
 var gameOver = false;
 var scoreText;
 
-var game = new Phaser.Game(config);
+export default new Phaser.Game(config);
 
 function preload() {
   this.load.image("sky", "assets/sky.png");
@@ -167,6 +169,7 @@ function collectStar(player, star) {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 function hitBomb(player, bomb) {
   this.physics.pause();
 

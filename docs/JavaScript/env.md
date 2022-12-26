@@ -91,11 +91,28 @@ An error (if dev tools are open and the button is “on”).
    npm init @eslint/config
    ```
 
-[Setting up ESLINT in your JavaScript Project with VS Code](https://dev.to/devdammak/setting-up-eslint-in-your-javascript-project-with-vs-code-2amf)
+4. vscode extension settings
 
-[How To Lint and Format Code with ESLint in Visual Studio Code](https://www.digitalocean.com/community/tutorials/linting-and-formatting-with-eslint-in-vs-code)
+   ```json
+   {
+     "eslint.format.enable": true,
+     "editor.codeActionsOnSave": {
+       "source.fixAll.eslint": true
+     }
+   }
+   ```
 
-[Configuring ESLint](https://eslint.org/docs/latest/user-guide/configuring/)
+5. 注意不要被 prettier 覆盖
+
+- [Setting up ESLINT in your JavaScript Project with VS Code](https://dev.to/devdammak/setting-up-eslint-in-your-javascript-project-with-vs-code-2amf)
+
+- [How To Lint and Format Code with ESLint in Visual Studio Code](https://www.digitalocean.com/community/tutorials/linting-and-formatting-with-eslint-in-vs-code)
+
+- [Configuring ESLint](https://eslint.org/docs/latest/user-guide/configuring/)
+
+- [Tutorial - Use Prettier and ESLint in Visual Studio Code | Lint and Format your Code](https://www.youtube.com/watch?v=kWIlrSorqFE)
+
+  recommend
 
 ## 文件
 

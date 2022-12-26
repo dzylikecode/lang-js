@@ -1,6 +1,6 @@
-import Phaser from "./lib/phaser.js";
+import Phaser from "phaser";
 
-let config = {
+const config = {
   type: Phaser.AUTO,
   width: 800,
   height: 600,
@@ -16,8 +16,11 @@ let config = {
   },
 };
 
-new Phaser.Game(config);
+export default new Phaser.Game(config);
 
+/**
+ * @this Phaser.Scene
+ */
 function preload() {
   //this.load.setBaseURL("http://labs.phaser.io");
 
@@ -26,18 +29,21 @@ function preload() {
   this.load.image("red", "assets/red.png");
 }
 
+/**
+ * @this Phaser.Scene
+ */
 function create() {
   this.add.image(400, 300, "sky");
 
-  let particles = this.add.particles("red");
+  const particles = this.add.particles("red");
 
-  let emitter = particles.createEmitter({
+  const emitter = particles.createEmitter({
     speed: 100,
     scale: { start: 1, end: 0 },
     blendMode: "ADD",
   });
 
-  let logo = this.physics.add.image(400, 100, "logo");
+  const logo = this.physics.add.image(400, 100, "logo");
 
   logo.setVelocity(100, 200);
   logo.setBounce(1, 1);
