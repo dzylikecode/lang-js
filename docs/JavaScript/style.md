@@ -4,6 +4,10 @@
 
 - JSDoc: https://jsdoc.app/index.html
 
+- 记录函数的参数和用法
+
+  黑箱思想
+
 ---
 
 bind this
@@ -16,6 +20,34 @@ function preload() {
   this.load.image("logo", "assets/logo.png");
 }
 ```
+
+- 解释性的注释应该最少
+
+  代码本身做到自描述
+
+- 通常情况下, 尽可能保持简洁和自描述, 可以稍微牺牲优化
+
+---
+
+好的注释应该描述更为抽象的概念
+
+描述架构
+
+高层次概括:相互作用, 控制流程
+
+代码的架构图: UML
+
+---
+
+But what's not written may be more important to understand what is written.
+
+描述为什么这样做, 而不是其他的(代码只描述了要这样做)
+
+避免以下状况:
+
+之前, 思考过一些显而易见的方案, 发现存在漏洞
+
+下次重构代码的时候, 忘记了当初考虑的漏洞, 重新改写回"显而易见"的错误的方案
 
 ### 命名规则
 
