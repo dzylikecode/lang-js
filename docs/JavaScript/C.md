@@ -1,12 +1,12 @@
 # C
 
-## 代码结构
+## 历史遗迹
 
 - 分号大部分时间可省
 
   最好还是写
 
-## 现代模式
+### 现代模式
 
 - 了解 `use strict`
 
@@ -144,7 +144,7 @@ function 隶属于 Object 类型, 但是 typeof 会特地区分
 
   " ", "0" -> true
 
-## 数学运算
+## operator
 
 - 额外支持
 
@@ -164,7 +164,7 @@ function 隶属于 Object 类型, 但是 typeof 会特地区分
 
 - [测验](https://zh.javascript.info/operators#lei-xing-zhuan-huan)
 
-## 值的比较
+### 值的比较
 
 - `==`
 
@@ -178,7 +178,7 @@ function 隶属于 Object 类型, 但是 typeof 会特地区分
 
   需要警惕 `undefined` 和 `null`
 
-## 条件分支
+## condition
 
 与 C 语言相同, 也是用`{}`作为语句块
 
@@ -188,7 +188,7 @@ function 隶属于 Object 类型, 但是 typeof 会特地区分
 
   与 C 语言的相同
 
-## 逻辑运算符
+### 逻辑运算符
 
 - `||`
 
