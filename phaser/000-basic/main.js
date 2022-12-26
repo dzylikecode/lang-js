@@ -1,3 +1,5 @@
+import Phaser from "./lib/phaser.js";
+
 let config = {
   type: Phaser.AUTO,
   width: 800,
@@ -14,7 +16,7 @@ let config = {
   },
 };
 
-let game = new Phaser.Game(config);
+new Phaser.Game(config);
 
 function preload() {
   //this.load.setBaseURL("http://labs.phaser.io");

@@ -1,0 +1,25 @@
+{
+  "name": "lang_js",
+  "version": "1.0.0",
+  "description": "for js tutorial",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dzylikecode/lang-js.git"
+  },
+  "author": "Dz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dzylikecode/lang-js/issues"
+  },
+  "homepage": "https://github.com/dzylikecode/lang-js#readme",
+  "devDependencies": {
+    "eslint": "^8.30.0"
+  }
+}

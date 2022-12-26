@@ -114,6 +114,12 @@ nodeJS 的管理器
 |       vm       |      To compile JavaScript code in a virtual machine       |
 |      zlib      |              To compress or decompress files               |
 
+## global
+
+```bash
+npm list -g
+```
+
 ## import
 
 ```js

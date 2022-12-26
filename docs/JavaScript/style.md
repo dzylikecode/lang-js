@@ -48,3 +48,20 @@
   函数应该简短且只有一个功能
 
   一个单独的函数不仅更容易测试和调试 => 它的存在本身就是一个很好的注释！
+
+## 代码风格
+
+- 清晰易读
+
+- 垂直方向的缩进
+
+  通过逻辑层次进行划分, 多一些空行
+
+- 函数先调用后声明 => 凸显主逻辑
+
+- [风格指南](https://zh.javascript.info/coding-style#feng-ge-zhi-nan)
+
+  - [Google JavaScript 风格指南](https://google.github.io/styleguide/jsguide.html)
+  - [Airbnb JavaScript 风格指南](https://github.com/airbnb/javascript)
+  - [Idiomatic.JS](https://github.com/rwaldron/idiomatic.js)
+  - [StandardJS](https://standardjs.com/)

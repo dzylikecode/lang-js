@@ -2,11 +2,20 @@
 
 ## 历史遗迹
 
-- 分号大部分时间可省
+分号大部分时间可省
 
-  最好还是写
+最好还是写
 
-### 现代模式
+```javascript
+alert("There will be an error") // 此时换行没作用
+  [(1, 2)].forEach(alert);
+```
+
+一般代码块`{}`(如循环, 函数)不需要分号
+
+---
+
+现代模式
 
 - 了解 `use strict`
 
@@ -198,9 +207,17 @@ function 隶属于 Object 类型, 但是 typeof 会特地区分
 
   从左到右, 返回第一个真值(同时, 短路原理)
 
-  - eg: `alert( firstName || lastName || "Anonymous" );`
+  eg:
 
-    若所有变量都是 false, 返回'Anonymous'
+  1. `alert( firstName || lastName || "Anonymous" );`
+
+     若所有变量都是 false, 返回'Anonymous'
+
+  2. 默认赋值
+
+     ```js
+     newMarkdown = originalMarkdown || {};
+     ```
 
 - `&&`
 
@@ -222,9 +239,13 @@ function 隶属于 Object 类型, 但是 typeof 会特地区分
 
   返回布尔值
 
+  双感叹`!!`常用于转化为 Boolean
+
 - `??`
 
   空值合并运算符(优先级和 `||` 相同)
+
+  !> `||`针对的是 Boolean 值, `??`针对的是 null/undefined
 
   `result = a ?? b;`
 
@@ -236,7 +257,7 @@ function 隶属于 Object 类型, 但是 typeof 会特地区分
 
   > 一般不要和 `||`以及`&&` 混用
 
-## 循环
+## loop
 
 和 C 语言相同
 
@@ -265,7 +286,7 @@ function 隶属于 Object 类型, 但是 typeof 会特地区分
 
 与 C 语言相同
 
-## 函数
+## function
 
 - 形式
 
@@ -279,14 +300,22 @@ function 隶属于 Object 类型, 但是 typeof 会特地区分
 
   就近解释原则, 找不到就一层一层往上找
 
-- 支持默认参数
 - `return;` 等价于 `return undefined;`
+- 支持默认参数
+
+  ```js
+  function showMessage(from, text = anotherFunction()) {
+    alert(from + ": " + text);
+  }
+  ```
+
+  当 text 没有赋值的时候, 每次都会调用默认参数
+
 - return 的注意点
 
-  ```javascript
-  return;
-  some + long + expression + or + whatever * f(a) + f(b);
-  ```
+  `return`
+
+  `some + long + expression + or + whatever * f(a) + f(b);`
 
   会被解析为
 
@@ -306,7 +335,7 @@ function 隶属于 Object 类型, 但是 typeof 会特地区分
   );
   ```
 
-## 函数表达式
+### function-expressions
 
 - 函数表达式
 
@@ -428,23 +457,23 @@ function 隶属于 Object 类型, 但是 typeof 会特地区分
   alert(counter2()); // 1
   ```
 
-- 函数表达式与函数声明
+函数表达式与函数声明的重要区别:
 
-  - 函数在被声明之前也是可见的
+> 函数在被声明之前也是可见的
 
-    在执行代码块之前，内部算法会先处理函数声明。所以函数声明在其被声明的代码块内的任何位置都是可见的
+在执行代码块之前，内部算法会先处理函数声明。所以函数声明在其被声明的代码块内的任何位置都是可见的
 
-    ```javascript
-    sayHi("John"); // Hello, John
+```javascript
+sayHi("John"); // Hello, John
 
-    function sayHi(name) {
-      alert(`Hello, ${name}`);
-    }
-    ```
+function sayHi(name) {
+  alert(`Hello, ${name}`);
+}
+```
 
-  - 函数表达式在执行流程到达时创建
+!> 函数表达式在执行流程到达时创建
 
-## 箭头函数
+### arrow-function
 
 - 形式
 
@@ -477,26 +506,8 @@ function 隶属于 Object 类型, 但是 typeof 会特地区分
 
   > 简而言之, 花括号的函数体需要 return
 
-## javascript 特性
-
-### 代码结构
-
-- 语句用分号分隔
+- 返回对象
 
   ```javascript
-  alert("Hello");
-  alert("World");
+  let sayHi = () => ({ name: "John" });
   ```
-
-  通常换行也被视作分号, 有的时候会出现问题
-
-  ```javascript
-  alert("There will be an error") // 此时换行没作用
-    [(1, 2)].forEach(alert);
-  ```
-
-  一般代码块`{}`(如循环, 函数)不需要分号
-
-### 总结
-
-- [基础总结](https://zh.javascript.info/javascript-specials)
