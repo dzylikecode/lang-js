@@ -62,28 +62,40 @@ An error (if dev tools are open and the button is “on”).
 
 插件:
 
-- eslint
+### eslint
 
-  1. 安装 pkg
+1. 安装 pkg
 
-     ```bash
-     npm install -g eslint
-     ```
+   ```bash
+   npm install -g eslint
+   ```
 
-     ```bash
-     npm uninstall -g eslint
-     ```
+   ```bash
+   npm uninstall -g eslint
+   ```
 
-  2. 安装插件
-  3. 初始化
+2. 安装插件
+3. 初始化
 
-     ```bash
-     npm init
-     ```
+   ```bash
+   npm init
+   ```
 
-     ```bash
-     eslint --init
-     ```
+   ```bash
+   eslint --init
+   ```
+
+   or
+
+   ```bash
+   npm init @eslint/config
+   ```
+
+[Setting up ESLINT in your JavaScript Project with VS Code](https://dev.to/devdammak/setting-up-eslint-in-your-javascript-project-with-vs-code-2amf)
+
+[How To Lint and Format Code with ESLint in Visual Studio Code](https://www.digitalocean.com/community/tutorials/linting-and-formatting-with-eslint-in-vs-code)
+
+[Configuring ESLint](https://eslint.org/docs/latest/user-guide/configuring/)
 
 ## 文件
 
