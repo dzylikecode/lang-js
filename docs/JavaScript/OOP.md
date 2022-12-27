@@ -98,7 +98,7 @@ for (let key in user) {
   alert(user.name); // John
   ```
 
-## 对象引用和复制
+## 引用和复制
 
 对象通过引用复制, 原始类型通过值复制
 
@@ -122,19 +122,13 @@ for (let key in user) {
 
     dest 中的属性会被 src 中的属性覆盖
 
+  - `structuredClone`
+
 - const 对象
 
   const 是引用(是整个整体), 而对象的属性是可以改变的
 
-## 垃圾回收
-
-- 详细理解:[一个简单的例子](https://zh.javascript.info/garbage-collection)
-
-- 可达性
-
-## 对象方法-this
-
-### 方法简写
+## method
 
 ```javascript
 user = {
@@ -153,7 +147,7 @@ let user = {
 
 > 在继承方面有细微的差别
 
-### this
+## this
 
 this 可以用于任何函数, 即使不是对象的方法
 
@@ -189,7 +183,7 @@ this 可以用于任何函数, 即使不是对象的方法
   admin["f"](); // Admin (dot or square brackets access the method – doesn't matter)
   ```
 
-  this 是“自由”的，它的值是在调用时计算出来的，它的值并不取决于方法声明的位置，而是取决于在“点符号前”的是什么对象
+  this 并不取决于方法声明的位置，而是取决于在“点符号前”的是什么对象
 
   > this 被调用的时候才会被确定, 比如`sayHi()`的时候是 undefined, `user.f()`的时候是 user
 
@@ -207,9 +201,10 @@ this 可以用于任何函数, 即使不是对象的方法
       arrow();
     },
   };
+  user.sayHi(); // Ilya
   ```
 
-  当我们并不想要一个独立的 this，反而想从外部上下文中获取时，它很有用
+  获取上一个作用域的 this
 
 - [经典检验](https://zh.javascript.info/object-methods#zai-dui-xiang-zi-mian-liang-zhong-shi-yong-this)
 

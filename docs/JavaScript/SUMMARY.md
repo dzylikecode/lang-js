@@ -4,7 +4,7 @@
 - [module](/docs/JavaScript/module.md)
 - [test](/docs/JavaScript/test.md)
 - [exception](/docs/JavaScript/exception.md)
-- [对象基础](/docs/JavaScript/ch04/README.md)
+- [OOP](/docs/JavaScript/OOP.md)
 - [数据类型](/docs/JavaScript/ch05/README.md)
 - [函数进阶](/docs/JavaScript/ch06/README.md)
 - [对象属性配置](/docs/JavaScript/ch07/README.md)
