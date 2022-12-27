@@ -221,3 +221,51 @@ export { default } from "./user.js"; // to re-export the default export
   返回的是 `promise`
 
   所以要使用`then`或者`await`
+
+## es in browser
+
+1. 下载相应的库
+
+   ```bash
+   npm i --save-dev mocha chai
+   ```
+
+2. 在 js 中使用 es 导入方式
+
+   ```js
+   import { assert } from "chai";
+   import { describe, it } from "mocha";
+   ```
+
+3. 在 html 中使用 script 标签引入
+
+   ```html
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.js"></script>
+   ```
+
+4. 进行 map 映射
+
+   ```html
+   <script type="importmap">
+     {
+       "imports": {
+         "mocha": "./lib/mocha.js",
+         "chai": "./lib/chai.js"
+       }
+     }
+   </script>
+   ```
+
+5. 创建相应的文件
+
+   ```js
+   // lib/mocha.js
+   export const describe = window.describe;
+   export const it = window.it;
+   ```
+
+   ```js
+   // lib/chai.js
+   export const assert = window.assert;
+   ```

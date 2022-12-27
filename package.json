@@ -20,7 +20,9 @@
   },
   "homepage": "https://github.com/dzylikecode/lang-js#readme",
   "devDependencies": {
-    "eslint": "^8.30.0"
+    "chai": "^4.3.7",
+    "eslint": "^8.30.0",
+    "mocha": "^10.2.0"
   },
   "dependencies": {
     "phaser": "^3.55.2"

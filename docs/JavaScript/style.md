@@ -110,3 +110,9 @@ But what's not written may be more important to understand what is written.
   - [Airbnb JavaScript 风格指南](https://github.com/airbnb/javascript)
   - [Idiomatic.JS](https://github.com/rwaldron/idiomatic.js)
   - [StandardJS](https://standardjs.com/)
+
+## 忍者代码
+
+- 辛辣的讽刺哟:[忍者代码](https://zh.javascript.info/ninja-code)
+
+  > 大半夜, 逗得我睡不着觉, 哈哈哈, 要笑掉肚子了
