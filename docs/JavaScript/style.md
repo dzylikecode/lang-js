@@ -116,3 +116,7 @@ But what's not written may be more important to understand what is written.
 - 辛辣的讽刺哟:[忍者代码](https://zh.javascript.info/ninja-code)
 
   > 大半夜, 逗得我睡不着觉, 哈哈哈, 要笑掉肚子了
+
+## 优化
+
+Optimizations are not required in every place, mostly we need a good code, that’s why it’s used. (recursion)

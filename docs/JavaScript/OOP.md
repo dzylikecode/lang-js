@@ -151,166 +151,150 @@ let user = {
 
 this 可以用于任何函数, 即使不是对象的方法
 
-- eg
+```javascript
+function sayHi() {
+  alert(this.name);
+}
 
-  ```javascript
-  function sayHi() {
-    alert(this.name);
+sayHi(); // undefined
+```
+
+this 取决于上下文
+
+```javascript
+let user = { name: "John" };
+let admin = { name: "Admin" };
+
+function sayHi() {
+  alert(this.name);
+}
+
+// use the same function in two objects
+user.f = sayHi;
+admin.f = sayHi;
+
+// these calls have different this
+// "this" inside the function is the object "before the dot"
+user.f(); // John  (this == user)
+admin.f(); // Admin  (this == admin)
+
+admin["f"](); // Admin (dot or square brackets access the method – doesn't matter)
+```
+
+this 并不取决于方法声明的位置，而是取决于在“点符号前”的是什么对象
+
+> this 被调用的时候才会被确定, 比如`sayHi()`的时候是 undefined, `user.f()`的时候是 user
+
+---
+
+箭头函数没有自己的 "this", 采用的是 closure, 当作是普通的变量
+
+- [example](../../example/test_func/)
+
+---
+
+返回对象
+
+`user => ({ name: "John" })` 等价于 `user => { return { name: "John" } }`
+
+> 注意第一种形式一定要加括号, 否则会被解析为函数体
+
+## new
+
+```javascript
+function User(name) {
+  // this = {};  (implicitly)
+
+  // add properties to this
+  this.name = name;
+  this.isAdmin = false;
+
+  // return this;  (implicitly)
+}
+
+let user = new User("Jack");
+```
+
+> 也可以`let user = new function() {}`, 这样将没法再次调用, 为的是仅仅创建一个这样的类
+
+---
+
+约定:
+
+- 构造器函数首字母大写
+
+- 构造器函数必须使用 new 来调用
+
+---
+
+new.target:判断函数是否是 new 调用
+
+```js
+function User(name) {
+  if (!new.target) {
+    // 如果你没有通过 new 运行我
+    return new User(name); // ……我会给你添加 new
   }
 
-  sayHi(); // undefined
-  ```
+  this.name = name;
+}
 
-- this 取决于上下文
+let john = User("John"); // 将调用重定向到新用户
+```
 
-  ```javascript
-  let user = { name: "John" };
-  let admin = { name: "Admin" };
+详细:[构造器模式测试：new.target](https://zh.javascript.info/constructor-new#gou-zao-qi-mo-shi-ce-shi-newtarget)
 
-  function sayHi() {
-    alert(this.name);
-  }
+---
 
-  // use the same function in two objects
-  user.f = sayHi;
-  admin.f = sayHi;
+构造器的 return 规则:
 
-  // these calls have different this
-  // "this" inside the function is the object "before the dot"
-  user.f(); // John  (this == user)
-  admin.f(); // Admin  (this == admin)
-
-  admin["f"](); // Admin (dot or square brackets access the method – doesn't matter)
-  ```
-
-  this 并不取决于方法声明的位置，而是取决于在“点符号前”的是什么对象
-
-  > this 被调用的时候才会被确定, 比如`sayHi()`的时候是 undefined, `user.f()`的时候是 user
-
-- 箭头函数没有自己的 "this"
-
-  它们没有自己的 this。如果我们在这样的函数中引用 this，this 值取决于外部“正常的”函数。
-
-  也就是会引入上一个层级的 this
-
-  ```javascript
-  let user = {
-    firstName: "Ilya",
-    sayHi() {
-      let arrow = () => alert(this.firstName);
-      arrow();
-    },
-  };
-  user.sayHi(); // Ilya
-  ```
-
-  获取上一个作用域的 this
-
-- [经典检验](https://zh.javascript.info/object-methods#zai-dui-xiang-zi-mian-liang-zhong-shi-yong-this)
-
-  第一个例子中,this 不是作为方法调用, 而是直接取值
-
-  第二个例子是, this 在某个方法中调用
-
-- 返回对象
-
-  `user => ({ name: "John" })` 等价于 `user => { return { name: "John" } }`
-
-  > 注意第一种形式一定要加括号, 否则会被解析为函数体
-
-## 构造器和操作符-new
-
-- 构造器
-
-  ```javascript
-  function User(name) {
-    // this = {};  (implicitly)
-
-    // add properties to this
-    this.name = name;
-    this.isAdmin = false;
-
-    // return this;  (implicitly)
-  }
-
-  let user = new User("Jack");
-  ```
-
-  > 也可以`let user = new function() {}`, 仅仅调用一次
-
-- 约定
-
-  - 构造器函数首字母大写
-
-  - 构造器函数必须使用 new 来调用
-
-- new.target(boolean 值)
-
-  判断构造器函数是否是 new 调用
-
-  详细:[构造器模式测试：new.target](https://zh.javascript.info/constructor-new#gou-zao-qi-mo-shi-ce-shi-newtarget)
-
-- 构造器的 return
-
-  - 如果 return 返回的是一个对象，则返回这个对象，而不是 this
-  - 如果 return 返回的是一个原始类型，则忽略
-
-## 可选链
-
-- 解决属性不存在的问题
-
-- 形式
-
-  - `obj?.prop` —— 如果 `obj` 存在则返回 `obj.prop`，否则返回 `undefined`
-  - `obj?.[prop]` —— 如果 `obj` 存在则返回 `obj[prop]`，否则返回 `undefined`
-  - `obj.method?.()` —— 如果 `obj.method` 存在则调用 `obj.method()`，否则返回 `undefined`
-
-- 短路效应
-
-  如果可选链某个环节已经是 undefined/null, 则后面的不会再执行
-
-- 忠告
-
-  谨慎地使用
-
-  保证在代码中有编程上的错误出现时，也不会对我们隐藏
+- 如果 return 返回的是一个对象，则返回这个对象，而不是 this
+- 如果 return 返回的是一个原始类型，则忽略
 
 ## symbol 类型
 
-- 只用两种类型可以作为对象属性键
+只用两种类型可以作为对象属性键
 
-  - 字符串
-  - symbol
+- 字符串
+- symbol
 
-- symbol 值是唯一的
+---
 
-  ```javascript
-  let id1 = Symbol("id");
-  let id2 = Symbol("id");
+symbol 值是唯一的
 
-  alert(id1 == id2); // false
-  ```
+```javascript
+let id1 = Symbol("id");
+let id2 = Symbol("id");
 
-- 使用场景
+alert(id1 == id2); // false
+```
 
-  避免不同文件中的变量名冲突, 将属性作为私有属性
+---
 
-  保护对象属性不被意外修改
+使用场景
 
-  ```javascript
-  let id = Symbol("id");
+避免不同文件中的变量名冲突, 将属性作为私有属性
 
-  let user = {
-    name: "John",
-    [id]: 123, // not "id: 123"
-  };
-  ```
+保护对象属性不被意外修改
 
-  使用的是 id 的值, 而不是 "id"这个字符串
+```javascript
+let id = Symbol("id");
 
-  - 在 `for..in` 中不会出现
-  - 在`Object.keys()`中不会出现
-  - 在`Object.assign()`中会出现(复制的完整性)
+let user = {
+  name: "John",
+  [id]: 123, // not "id: 123"
+};
+```
+
+使用的是 id 的值, 而不是 "id"这个字符串
+
+---
+
+- 在 `for..in` 中不会出现
+- 在`Object.keys()`中不会出现
+- 在`Object.assign()`中会出现(复制的完整性)
+
+---
 
 - 全局 symbol
 
@@ -334,7 +318,7 @@ this 可以用于任何函数, 即使不是对象的方法
 
 ## 对象-原始值转换
 
-不存在 c++的函数重载
+!> 不存在 c++的函数重载
 
 - 转化规则
 
@@ -370,21 +354,23 @@ this 可以用于任何函数, 即使不是对象的方法
 
     不确定期望的类型, 类型转化将依赖 default 的来转化
 
-- 设置类型转化
+---
 
-  JavaScript 尝试查找并调用三个对象方法
+转化策略:
 
-  调用 `obj[Symbol.toPrimitive](hint)`
+JavaScript 尝试查找并调用三个对象方法
 
-  否则，如果 hint 是 "string" => 尝试调用 obj.toString() 或 obj.valueOf()
+调用 `obj[Symbol.toPrimitive](hint)`
 
-  > 优先调用 toString(), 然后是 valueOf()
+否则，如果 hint 是 "string" => 尝试调用 obj.toString() 或 obj.valueOf()
 
-  否则，如果 hint 是 "number" 或 "default" => 尝试调用 obj.valueOf() 或 obj.toString()
+> 优先调用 toString(), 然后是 valueOf()
 
-  > 优先调用 valueOf(), 然后是 toString()
+否则，如果 hint 是 "number" 或 "default" => 尝试调用 obj.valueOf() 或 obj.toString()
 
-  > 方法调用是有优先级的
+> 优先调用 valueOf(), 然后是 toString()
+
+> 方法调用是有优先级的
 
 - Symbol.toPrimitive
 
@@ -407,4 +393,6 @@ this 可以用于任何函数, 即使不是对象的方法
 
   可以用 hint 进行判断当前的语境, 根据不同的语境选择不同的行为
 
-- 强制要求 => 这些方法的返回类型一定要是原始值
+!> 强制要求 => 这些方法的返回类型一定要是原始值
+
+感觉可以偷偷地实现运算符重载, 如果根据原始的数据类型来

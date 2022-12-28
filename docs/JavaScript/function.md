@@ -1,58 +1,44 @@
-# 函数进阶
+# function
 
-## 递归和堆栈
+函数的高级概念
 
-- [递归和堆栈](https://zh.javascript.info/recursion)
+## recursion
 
-## Rest 参数与 Spread 语法
+```js
+function pow(x, n) {
+  if (n == 0) {
+    return 1;
+  } else if (n == 1) {
+    return x;
+  }
+  const half = pow(x, Math.floor(n / 2));
+  return half * half * (n % 2 == 0 ? 1 : x);
+}
+```
 
-### Rest 参数
+---
 
-- 限制
+For web-developers there are much better-known examples: HTML and XML documents.
 
-  rest 参数只能是最后一个参数
+In the HTML document, an **HTML-tag** may contain a list of:
 
-- 形式
+- Text pieces.
+- HTML-comments.
+- Other **HTML-tags** (that in turn may contain text pieces/comments or other tags etc).
 
-  - `function f(a, b, ...theArgs) { ... }`
-  - `function f(...theArgs) { ... }`
+---
 
-  省略号即是将剩余的参数放入数组中
+链表: linked list
 
-- arguments
+```txt
+list = {value, next -> list}
+```
 
-  在函数内部，可以使用 arguments 变量来访问所有参数。它是一个类似数组的对象.
+## stack
 
-  箭头函数没有 arguments 变量
+context, 函数的上下文
 
-### Spread 语法
-
-- 语法
-
-  `...` 语法可以将数组展开
-
-  ```js
-  let arr = [3, 5, 1];
-  alert(Math.max(...arr)); // 5 (spread turns array into a list of arguments)
-  ```
-
-  也可以将字符串展开
-
-  ```js
-  let str = "Hello";
-  alert([...str]); // H,e,l,l,o
-  ```
-
-  也可以将任何可迭代对象展开
-
-  - 灵活形式`let arrCopy = [1, 3, ...arr1, 5, ...arr2, 7];`
-
-- 代替复制`Object.assign`
-
-  - `let arrCopy = [...arr];`
-  - `let objCopy = {...obj};`
-
-## 变量作用域-闭包
+## closure
 
 - 闭包
 
@@ -136,7 +122,7 @@
 
   执行到`console.log(x)`时, 局部变量`x`还没有定义, 所以会报错
 
-## 老旧的 var
+## var
 
 - var 没有块级作用域 => 都是全局变量或函数局部变量
 

@@ -241,22 +241,6 @@ function 隶属于 Object 类型, 但是 typeof 会特地区分
 
   双感叹`!!`常用于转化为 Boolean
 
-- `??`
-
-  空值合并运算符(优先级和 `||` 相同)
-
-  !> `||`针对的是 Boolean 值, `??`针对的是 null/undefined
-
-  `result = a ?? b;`
-
-  若 a 为 null 或 undefined, 返回 b
-
-  否则返回 a
-
-  - eg: `alert( firstName ?? lastName ?? "Anonymous" );`
-
-  > 一般不要和 `||`以及`&&` 混用
-
 ## loop
 
 和 C 语言相同
