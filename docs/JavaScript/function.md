@@ -38,6 +38,30 @@ list = {value, next -> list}
 
 context, 函数的上下文
 
+## scope
+
+作用域
+
+---
+
+分块作用
+
+```js
+// show message
+{
+  const msg = "hello";
+  send(msg);
+}
+
+// show another message
+{
+  const msg = "start";
+  send(msg);
+}
+```
+
+此时 code block 具有划分块的作用, 用于表示注释中**目的**的起止
+
 ## closure
 
 - 闭包
@@ -46,81 +70,89 @@ context, 函数的上下文
 
   闭包 => 会记住它的`调用堆栈链`(语法环境链 => 隐藏属性`[[Environment]]`)
 
-- 示例
+### lexical environment
 
-  for 循环括号里面声明的变量, 每次循环都是一个新的变量, 只是会把上一次的值保留下来
+[词法作用域](https://javascript.info/closure#lexical-environment)
 
-  ```javascript
-  function makeArmy() {
-    let shooters = [];
+When the code wants to access a variable – the inner Lexical Environment is searched first, then the outer one, then the more outer one and so on until the global one.
 
-    let i = 0;
-    while (i < 10) {
-      let j = i;
-      let shooter = function () {
-        // shooter 函数
-        alert(j); // 应该显示它自己的编号
-      };
-      shooters.push(shooter);
-      i++;
-    }
+---
 
-    return shooters;
+示例
+
+for 循环括号里面声明的变量, 每次循环都是一个新的变量, 只是会把上一次的值保留下来
+
+```javascript
+function makeArmy() {
+  let shooters = [];
+
+  let i = 0;
+  while (i < 10) {
+    let shooter = function () {
+      // shooter 函数
+      alert(i); // 应该显示它自己的编号
+    };
+    shooters.push(shooter);
+    i++;
   }
 
-  let army = makeArmy();
+  return shooters;
+}
 
-  // 现在代码正确运行了
-  army[0](); // 0
-  army[5](); // 5
-  ```
+let army = makeArmy();
 
-  每个子函数都会记住新的`j`, 每个循环都是不同的`j`
+army[0](); // 5
+army[5](); // 5
+```
 
-  ```javascript
-  function makeArmy() {
-    let shooters = [];
+每个子函数都会记住`i`, 而最终 i 变成了 5, 所有的输出都是 5
 
-    for (let i = 0; i < 10; i++) {
-      let shooter = function () {
-        // shooter 函数
-        alert(i); // 应该显示它自己的编号
-      };
-      shooters.push(shooter);
-    }
+```javascript
+function makeArmy() {
+  let shooters = [];
 
-    return shooters;
+  for (let i = 0; i < 10; i++) {
+    let shooter = function () {
+      // shooter 函数
+      alert(i); // 应该显示它自己的编号
+    };
+    shooters.push(shooter);
   }
 
-  let army = makeArmy();
+  return shooters;
+}
 
-  army[0](); // 0
-  army[5](); // 5
-  ```
+let army = makeArmy();
 
-  `i`也是同理
+army[0](); // 0
+army[5](); // 5
+```
 
-- 语法环境
+每次循环都是新的 i, 与上一个 i 不是同一个变量
 
-  在创建语法环境时, 会预先扫描整个作用域, 找到所有的变量声明, 并将其放入环境中
+---
 
-  然后在定义时, 放入对应的值
+语法环境
 
-  ```javascript
-  let x = 1;
+在创建语法环境时, 会预先扫描整个作用域, 找到所有的变量声明, 并将其放入环境中
 
-  function func() {
-    console.log(x); // ?
+然后在定义时, 放入对应的值
 
-    let x = 2;
-  }
+```javascript
+let x = 1;
 
-  func();
-  ```
+function func() {
+  console.log(x); // ?
 
-  进入函数时, 语法环境知道局部变量`x`的存在, 于是会屏蔽外部的`x`, 所以里面的`x`都是局部变量
+  let x = 2;
+}
 
-  执行到`console.log(x)`时, 局部变量`x`还没有定义, 所以会报错
+func();
+```
+
+进入函数时, 语法环境知道局部变量`x`的存在, 于是会屏蔽外部的`x`, 所以里面的`x`都是局部变量
+
+执行到`console.log(x)`时, 局部变量`x`还没有定义, 所以会报错
 
 ## var
 
@@ -288,124 +320,6 @@ globalThis 被作为全局对象的标准名称加入到了 JavaScript 中
   ```
 
   `setInterval`返回一个定时器的标识符, 用于取消定时器
-
-## 装饰器模式和转发
-
-- 装饰器模式
-
-  ```javascript
-  function slow(x) {
-    // there can be a heavy CPU-intensive job here
-    alert(`Called with ${x}`);
-    return x;
-  }
-
-  function cachingDecorator(func) {
-    let cache = new Map();
-
-    return function (x) {
-      if (cache.has(x)) {
-        // if there's such key in cache
-        return cache.get(x); // read the result from it
-      }
-
-      let result = func(x); // otherwise call func
-
-      cache.set(x, result); // and cache (remember) the result
-      return result;
-    };
-  }
-
-  slow = cachingDecorator(slow);
-
-  alert(slow(1)); // slow(1) is cached
-  alert("Again: " + slow(1)); // the same
-
-  alert(slow(2)); // slow(2) is cached
-  alert("Again: " + slow(2)); // the same as the previous line
-  ```
-
-  1. `cachingDecorator`接收一个函数作为参数, 并返回一个新的函数
-  2. 新的函数在第一次调用时, 会将结果缓存起来, 之后再次调用时, 会直接返回缓存的结果
-
-- `sayHi.call(context, arg1, arg2, ...argN)`
-
-  ```javascript
-  let worker = {
-    someMethod() {
-      return 1;
-    },
-
-    slow(x) {
-      alert("Called with " + x);
-      return x * this.someMethod(); // (*)
-    },
-  };
-
-  function cachingDecorator(func) {
-    let cache = new Map();
-    return function (x) {
-      if (cache.has(x)) {
-        return cache.get(x);
-      }
-      let result = func.call(this, x); // 现在 "this" 被正确地传递了
-      cache.set(x, result);
-      return result;
-    };
-  }
-
-  worker.slow = cachingDecorator(worker.slow); // 现在对其进行缓存
-
-  alert(worker.slow(2)); // 工作正常
-  alert(worker.slow(2)); // 工作正常，没有调用原始函数（使用的缓存）
-  ```
-
-  `func.call`的 this 是返回的函数`function`的 this, 而`function`被赋值给了`worker.slow`, 所以调用`worker.slow`时, `this`指向`worker`
-
-  类似的有`func.apply`
-
-  `func.call(context, ...args)`等价于`func.apply(context, args)`
-
-  - 呼叫转移
-
-    ```javascript
-    let wrapper = function () {
-      return func.apply(this, arguments);
-    };
-    ```
-
-- 传递多个参数
-
-  ```javascript
-  function sayHi() {
-    alert(arguments);
-  }
-
-  sayHi("Hello"); // Hello
-  sayHi("Hello", "John"); // Hello, John
-  ```
-
-  通过利用`arguments`对象, 可以传递任意数量的参数
-
-- 借用方法
-
-  ```javascript
-  function hash() {
-    alert([].join.call(arguments)); // 1,2
-  }
-
-  hash(1, 2);
-  ```
-
-  `call`相当于替换了对象, 然后借助数组的`join`方法
-
-- 装饰器
-
-  装饰器会丢失原始函数的属性
-
-  要保留函数属性则使用`代理模式`
-
-- [经典练习](https://zh.javascript.info/call-apply-decorators#tasks)
 
 ## 函数绑定
 

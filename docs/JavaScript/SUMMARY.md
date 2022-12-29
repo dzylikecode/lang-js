@@ -12,5 +12,5 @@
 - [原型-继承](/docs/JavaScript/ch08/README.md)
 - [类](/docs/JavaScript/ch09/README.md)
 - [async](/docs/JavaScript/ch11/README.md)
-- [generator-iteration](/docs/JavaScript/ch12/README.md)
+- [pattern](/docs/JavaScript/pattern.md)
 - [杂项](/docs/JavaScript/ch14/README.md)
