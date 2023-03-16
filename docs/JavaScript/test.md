@@ -1,5 +1,11 @@
 # test frame
 
+Automated testing means that tests are written separately, in addition to the code. They run our functions in various ways and compare results with the expected.
+
+一个迭代的过程
+
+To write tests, the code should be organized in such a way that every function has a clearly described task, well-defined input and output. That means a good architecture from the beginning.
+
 ## 自动化测试
 
 使用 Mocha 进行自动化测试
@@ -18,16 +24,16 @@
 
     写规范, 实现它, 确保通过测试, 然后写更多的测试
 
-- 行为驱动开发技术([Behavior driven development:BDD](https://en.wikipedia.org/wiki/Behavior-driven_development))
+- 行为驱动开发技术 [^wiki bdd]
 
   - 测试 => 确保代码符合预期
   - 文档 => describe 和 it 描述函数做了什么
   - 示例 => 一个函数如何被使用
 
-### example
+## example
 
 - [案例](https://zh.javascript.info/testing-mocha#kai-fa-pow-gui-fan)
-- [测试框架](../../example/automate_test/)
+- [测试框架](/example/automate_test/README.md)
 
 - 规范
 
@@ -35,7 +41,7 @@
 
   - 包含 => 用例的描述和针对用例的测试
 
-## 哲学
+## 规范
 
 - 一个测试检测一个东西
 
@@ -57,8 +63,9 @@
   }
   ```
 
-### reference
+## References
 
-- [使用 Mocha 进行自动化测试](https://zh.javascript.info/testing-mocha)
-- [Getting Started with Node.js and Mocha](https://semaphoreci.com/community/tutorials/getting-started-with-node-js-and-mocha)
-- [What is the role of describe() in Mocha?](https://stackoverflow.com/questions/19298118/what-is-the-role-of-describe-in-mocha)
+1. [使用 Mocha 进行自动化测试](https://zh.javascript.info/testing-mocha)
+2. [Getting Started with Node.js and Mocha](https://semaphoreci.com/community/tutorials/getting-started-with-node-js-and-mocha)
+3. [What is the role of describe() in Mocha?](https://stackoverflow.com/questions/19298118/what-is-the-role-of-describe-in-mocha)
+4. [-wiki bdd] [Behavior-driven development - Wikipedia](https://en.wikipedia.org/wiki/Behavior-driven_development)

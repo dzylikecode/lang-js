@@ -1,33 +1,24 @@
 # C
 
-## 历史遗迹
+和 C 相似
 
-分号大部分时间可省
-
-最好还是写
-
-```javascript
-alert("There will be an error") // 此时换行没作用
-  [(1, 2)].forEach(alert);
-```
-
-一般代码块`{}`(如循环, 函数)不需要分号
-
----
-
-现代模式
-
-- 了解 `use strict`
-
-## 变量
+## variable
 
 ### 声明
 
-使用`var`或`let`(推荐)来声明变量
+`var`或`let`来声明变量
 
-和 C 类似, 可以同时赋值, 且多个一起
+> 推荐 let
 
-没有类型
+`const`是常量
+
+```js
+let user = "John",
+  message = "Hello";
+const PI = 3.14;
+```
+
+?> 推荐多使用 const
 
 ### 命名
 
@@ -42,10 +33,6 @@ alert("There will be an error") // 此时换行没作用
 - 大写: 硬编码常量, 比如设定颜色
 - 尽可能使用 const
 - camelCase: 驼峰格式
-
-### 常量
-
-使用`const`来声明常量, 不需要`let`
 
 ## 数据类型
 
@@ -319,9 +306,15 @@ function 隶属于 Object 类型, 但是 typeof 会特地区分
   );
   ```
 
-### function-expressions
+### function expressions
 
-- 函数表达式
+```js
+function (){}
+```
+
+如同其他变量一样:
+
+- 储存于变量中
 
   ```javascript
   let sayHi = function () {
@@ -329,74 +322,27 @@ function 隶属于 Object 类型, 但是 typeof 会特地区分
   };
   ```
 
-  > 类似函数指针, 函数本身没有分号结尾, 但是赋值语句有分号结尾
+  > 函数本身没有分号结尾, 但是赋值语句有分号结尾
 
-- 函数是一个值
-
-  函数可以像其他值一样被复制、传递、存储在变量中
+- 作为参数传递, 回调函数
 
   ```javascript
-  let sayHi = function () {
-    alert("Hello");
-  };
-  alert(sayHi); // 显示函数代码
-  ```
+  function ask(question, yes, no) {
+    if (confirm(question)) yes();
+    else no();
+  }
 
-- 函数表达式的函数名是可选的
-
-  如果函数名存在，那么它只在函数内部可见
-
-  供递归使用
-
-  - 函数表达式可以被赋值给变量
-
-    ```javascript
-    let sayHi = function func(who) {
-      if (who) {
-        alert(`Hello, ${who}`);
-      } else {
-        func("Guest"); // 使用 func 调用自身
-      }
-    };
-
-    sayHi(); // Hello, Guest
-
-    // 也可以这样调用
-    // func(); // Error: func is not defined
-    ```
-
-  - 函数表达式可以被赋值给其他函数
-
-    回调函数
-
-    ```javascript
-    function ask(question, yes, no) {
-      if (confirm(question)) yes();
-      else no();
-    }
-
-    function showOk() {
+  // 使用函数表达式
+  ask(
+    "Do you agree?",
+    function () {
       alert("You agreed.");
-    }
-
-    function showCancel() {
+    },
+    function () {
       alert("You canceled the execution.");
     }
-
-    // 使用函数表达式
-    ask(
-      "Do you agree?",
-      function () {
-        alert("You agreed.");
-      },
-      function () {
-        alert("You canceled the execution.");
-      }
-    );
-
-    // 使用函数声明, 回调函数
-    ask("Do you agree?", showOk, showCancel);
-    ```
+  );
+  ```
 
 - 函数表达式可以像变量一样事先声明
 
@@ -420,7 +366,9 @@ function 隶属于 Object 类型, 但是 typeof 会特地区分
   welcome(); // ok now
   ```
 
-- 函数表达式可以被赋值给其他函数的返回值
+  > 类似函数指针
+
+- 可以作为返回值
 
   ```javascript
   function makeCounter() {
@@ -441,57 +389,70 @@ function 隶属于 Object 类型, 但是 typeof 会特地区分
   alert(counter2()); // 1
   ```
 
-函数表达式与函数声明的重要区别:
+!> 函数表达式在执行流程到达时创建, 而函数声明方式是在这个区域任意地方可见
 
-> 函数在被声明之前也是可见的
-
-在执行代码块之前，内部算法会先处理函数声明。所以函数声明在其被声明的代码块内的任何位置都是可见的
+!> 函数表达式的函数名是可选的, 它只在函数内部可见, 供递归使用
 
 ```javascript
-sayHi("John"); // Hello, John
+let sayHi = function func(who) {
+  if (who) {
+    alert(`Hello, ${who}`);
+  } else {
+    func("Guest"); // 使用 func 调用自身
+  }
+};
 
-function sayHi(name) {
-  alert(`Hello, ${name}`);
-}
+sayHi(); // Hello, Guest
+
+// func(); // Error: func is not defined
 ```
 
-!> 函数表达式在执行流程到达时创建
+### arrow
 
-### arrow-function
+形如:
 
-- 形式
+```javascript
+(arg1, arg2, ...argN) => expression;
+```
 
-  ```javascript
-  let func = (arg1, arg2, ...argN) => expression;
-  ```
+返回 expression 的结果
 
-  > 返回 expression 的结果
+---
 
-- 如果没有参数，括号是必须的
+如果没有参数，括号是必须的
 
-  ```javascript
-  let sayHi = () => alert("Hello!");
-  ```
+```javascript
+let sayHi = () => alert("Hello!");
+```
 
-- 如果只有一个参数，括号是可选的
+如果只有一个参数，括号是可选的
 
-  ```javascript
-  let double = (n) => n * 2;
-  ```
+```javascript
+let double = (n) => n * 2;
+```
 
-- 如果函数体有多条语句，需要用大括号包裹，并且需要显式地使用 return
+---
 
-  ```javascript
-  let sum = (a, b) => {
-    let result = a + b;
-    return result; // 如果没有 return 语句，就会返回 undefined
-  };
-  ```
+如果函数体有多条语句，需要用大括号包裹，并且需要显式地使用 return
 
-  > 简而言之, 花括号的函数体需要 return
+```javascript
+let sum = (a, b) => {
+  let result = a + b;
+  return result; // 如果没有 return 语句，就会返回 undefined
+};
+```
 
-- 返回对象
+> 简而言之, 花括号的函数体需要 return
 
-  ```javascript
-  let sayHi = () => ({ name: "John" });
-  ```
+---
+
+!> 返回对象
+
+```javascript
+let sayHi = () => ({ name: "John" });
+```
+
+## References
+
+1. [JavaScript Fundamentals](https://javascript.info/first-steps)
+1. [Variables](https://javascript.info/variables)

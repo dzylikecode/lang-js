@@ -43,6 +43,15 @@ d3Graph(nodes, links);
 
 </div>
 
+## preface
+
+知道
+
+- [What can in-browser JavaScript do?](https://javascript.info/intro#what-can-in-browser-javascript-do)
+- [What CAN’T in-browser JavaScript do?](https://javascript.info/intro#what-can-t-in-browser-javascript-do)
+
+  - the same origin
+
 ## 哲学
 
 不是要评判编程语言的这个设计是好是坏。而是要了解怎样使用它，如何趋利避害
@@ -61,11 +70,14 @@ d3Graph(nodes, links);
 
 - 一个模块只做一件事
 
----
+- 简单的事, 简单地完成
+- Name things right [^modern var]
 
-清楚这么语言能做什么, 不能做什么
+  用 name 表达思考, concise, expressive, precise, consistent
 
-如 js 的同源策略
+  Functions are actions. So their name is usually a verb. It should be brief, as accurate as possible and describe what the function does, so that someone reading the code gets an indication of what the function does. [^modern func]
+
+  Functions == Comments
 
 ## 常识
 
@@ -75,23 +87,17 @@ SpiderMonkey —— Firefox 中的 JavaScript 引擎
 
 > 如果“V8 支持某个功能”，那么我们可以认为这个功能大概能在 Chrome、Opera 和 Edge 中正常运行
 
-- 同源策略
-
-- js 哲学
-
-  简单的事, 简单地完成
-
-- 上层语言
-
-  - Brython
-
 ## 手册与规范
 
-- MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
+- [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference)
 
 - 推荐搜索方式: `MDN [关键字]`
 
-## reference
+## References
 
-- [The Modern JavaScript Tutorial](https://javascript.info/)
-- [中文版](https://zh.javascript.info/)
+1. [The Modern JavaScript Tutorial](https://javascript.info/)
+
+   [中文版](https://zh.javascript.info/)
+
+2. [-modern var] [Variables](https://javascript.info/variables#name-things-right)
+3. [-modern func] [Functions](https://javascript.info/function-basics#function-naming)

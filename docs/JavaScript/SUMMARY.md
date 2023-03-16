@@ -1,6 +1,7 @@
 - [:boat:](/docs/JavaScript/README.md)
 - [env](/docs/JavaScript/env.md)
 - [C](/docs/JavaScript/C.md)
+- [comment](/docs/JavaScript/comment.md)
 - [module](/docs/JavaScript/module.md)
 - [test](/docs/JavaScript/test.md)
 - [exception](/docs/JavaScript/exception.md)
@@ -13,4 +14,4 @@
 - [类](/docs/JavaScript/ch09/README.md)
 - [async](/docs/JavaScript/ch11/README.md)
 - [pattern](/docs/JavaScript/pattern.md)
-- [杂项](/docs/JavaScript/ch14/README.md)
+- [杂项](/docs/JavaScript/others.md)

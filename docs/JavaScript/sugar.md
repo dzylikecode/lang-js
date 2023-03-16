@@ -24,27 +24,41 @@
 
 ## Nullish coalescing operator
 
-- `??`
+`??`
 
-  空值合并运算符(优先级和 `||` 相同)
+空值合并运算符(优先级和 `||` 相同)
 
-  !> `||`针对的是 Boolean 值, `??`针对的是 null/undefined
+!> `||`针对的是 Boolean 值, `??`针对的是 null/undefined
 
-  `result = a ?? b;`
+---
 
-  若 a 为 null 或 undefined, 返回 b
+```js
+result = a ?? b;
+```
 
-  否则返回 a
+若 a 为 null 或 undefined, 返回 b
 
-  - eg: `alert( firstName ?? lastName ?? "Anonymous" );`
+否则返回 a
 
-  > 一般不要和 `||`以及`&&` 混用
+eg:
 
-## 解构赋值
+```js
+alert(firstName ?? lastName ?? "Anonymous");
+```
 
-### 数组解构
+!> 一般不要和 `||`以及`&&` 混用
 
-- `let [a, b, c] = "abc"` 可以将字符串解构为数组
+## 解构
+
+### 数组
+
+```js
+let [a, b, c] = "abc";
+```
+
+可以将字符串解构为数组
+
+---
 
 ```javascript
 // 不需要第二个元素
@@ -60,121 +74,92 @@ alert(title); // Consul
 
 > 剩余的元素也跳过了
 
-- 交换变量 => `[a, b] = [b, a]`
-- 默认值
+---
 
-  - `let [firstName = "Guest", lastName = "Anonymous"] = [];`
-  - `let [firstName = prompt("name?"), lastName = prompt("last name?")] = [];`
+提供默认值
 
-- 储存剩余的元素
+```js
+let [firstName = "Guest", lastName = "Anonymous"] = [];
+let [firstName = prompt("name?"), lastName = prompt("last name?")] = [];
+```
 
-  - `let [name1, name2, ...rest] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];`
-  - `rest` 是一个数组, 可以使用任意别名, 不一定是`rest`
+---
 
-### 对象解构
+储存剩余的元素
 
-- `let {prop : varName = default, ...rest} = object`
+```js
+let [name1, name2, ...rest] = [
+  "Julius",
+  "Caesar",
+  "Consul",
+  "of the Roman Republic",
+];
+```
 
-  - `prop` 是对象的属性
-  - `varName` 是变量名
-  - `default` 是默认值
-  - `rest` 是剩余的属性
+`rest` 是一个数组, 可以使用任意别名, 不一定是`rest`
 
-- `let {width, height, title} = {title: "Menu", height: 200, width: 100};`
+> 像 Haskell 地对待 array
 
-  - `width` 和 `height` 会被赋值为 100 和 200
-  - `title` 会被赋值为 "Menu"
+---
 
-  > 顺序无关, 但是属性名必须一致, 否则需要用`{prop: varName}`的形式指定
+交换变量或者遍历
 
-- 不用 let
+```js
+[a, b] = [b, a];
+```
 
-  ```javascript
-  let title, width, height;
+```js
+// loop over keys-and-values
+for (let [key, value] of Object.entries(user)) {
+  alert(`${key}:${value}`);
+}
+```
 
-  // 现在就可以了
-  ({ title, width, height } = { title: "Menu", width: 200, height: 100 });
+### 对象
 
-  alert(title); // Menu
-  ```
+```js
+let {prop : varName = default, ...rest} = object;
+```
 
-  > 需要括号包裹, 避免花括号被解析为代码块
+- `prop` 是对象的属性
+- `varName` 是变量名
+- `default` 是默认值
+- `rest` 是剩余的属性
 
-- 嵌套
+---
 
-  ```javascript
-  let options = {
-    size: {
-      width: 100,
-      height: 200,
-    },
-    items: ["Cake", "Donut"],
-    extra: true, // something extra that we will not destruct
-  };
+简写, 默认使用相同的名字, 不另取别名
 
-  // destructuring assignment split in multiple lines for clarity
+```js
+let { width, height, title } = { title: "Menu", height: 200, width: 100 };
+```
 
-  // 先解构 size
+- `width` 和 `height` 会被赋值为 100 和 200
+- `title` 会被赋值为 "Menu"
 
-  let {
-    size: {
-      // put size here
-      width,
-      height,
-    },
-    items: [item1, item2], // assign items here
-    title = "Menu", // not present in the object (default value is used)
-  } = options;
-  ```
+> 顺序无关, 但是属性名必须一致, 否则需要用`{prop: varName}`的形式指定
 
-  > `:`相当于递归的解析形式(也可以理解为别名)
+---
+
+!> 不用 let, 需要括号包裹, 避免花括号被解析为代码块
+
+```javascript
+let title, width, height;
+
+({ title, width, height } = { title: "Menu", width: 200, height: 100 });
+```
+
+---
+
+嵌套 [^modern destructing]
+
+> 相当于递归地 destruct 下去
 
 ### 智能函数参数
 
-- 参数过多
+解决参数过多的问题, 采用传入 object 的方式, 作为参数, 然后 destruct, 同时设置一些默认参数 [^modern smart]
 
-  ```javascript
-  function showMenu(title = "Untitled", width = 200, height = 100, items = []) {
-    // ...
-  }
-
-  showMenu("My Menu", undefined, undefined, ["Item1", "Item2"]);
-  ```
-
-  > 传入 undefined 以跳过参数
-
-- 利用对象解构
-
-  ```javascript
-  function showMenu({
-    title = "Untitled",
-    width = 200,
-    height = 100,
-    items = [],
-  }) {
-    // title, items – taken from the object
-    // width, height – defaults used
-    alert(`${title} ${width} ${height}`); // My Menu 200 100
-    alert(items); // Item1, Item2
-  }
-
-  showMenu({
-    title: "My Menu",
-    items: ["Item1", "Item2"],
-  });
-  ```
-
-- 参数为空的函数设置默认值
-
-  ```javascript
-  function showMenu({ title = "Untitled", width = 200, height = 100 } = {}) {
-    // ...
-  }
-
-  showMenu(); // ok now
-  ```
-
-  > 传入空对象以跳过参数
+> 类似于 interface 了
 
 ## Rest 参数与 Spread 语法
 
@@ -223,3 +208,8 @@ alert(title); // Consul
 
   - `let arrCopy = [...arr];`
   - `let objCopy = {...obj};`
+
+## References
+
+1.  [-modern destructing] [Nested destructuring](https://javascript.info/destructuring-assignment#nested-destructuring)
+2.  [-modern smart] [Smart function parameters](https://javascript.info/destructuring-assignment#smart-function-parameters)

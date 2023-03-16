@@ -2,22 +2,6 @@
 
 函数的高级概念
 
-## recursion
-
-```js
-function pow(x, n) {
-  if (n == 0) {
-    return 1;
-  } else if (n == 1) {
-    return x;
-  }
-  const half = pow(x, Math.floor(n / 2));
-  return half * half * (n % 2 == 0 ? 1 : x);
-}
-```
-
----
-
 For web-developers there are much better-known examples: HTML and XML documents.
 
 In the HTML document, an **HTML-tag** may contain a list of:

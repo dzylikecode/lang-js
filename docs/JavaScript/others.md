@@ -4,6 +4,8 @@
 
 garbage collection
 
-- 详细理解:[一个简单的例子](https://zh.javascript.info/garbage-collection)
-
 - 可达性
+
+## References
+
+1. [Garbage collection](https://javascript.info/garbage-collection)

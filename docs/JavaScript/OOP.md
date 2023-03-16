@@ -1,20 +1,13 @@
 # 对象基础
 
-## 对象
+空对象
 
-相当于字典
+```javascript
+let user = new Object(); // "object constructor" syntax
+let user = {}; // "object literal" syntax
+```
 
-- 空对象
-
-  ```javascript
-  let user = new Object(); // "object constructor" syntax
-  let user = {}; // "object literal" syntax
-  ```
-
-- 属性必须是字符串或者 symbol
-- Array 也是对象, 是对象的扩展
-
-### 属性操作
+## 属性操作
 
 ```javascript
 // 创建属性
@@ -52,81 +45,90 @@ for (let key in user) {
 }
 ```
 
-- 属性会被替换为字符串
+> 相当于字典
 
-  - 不受关键字影响, 可以使用"for"作为属性名
-  - 可以用 0 作为属性名, 会被转换为字符串"0"
+属性必须是字符串或者 symbol, 属性会被替换为字符串
 
-- 计算属性
+Array 也是 object, 继承自 Object
 
-  推延创建
+---
 
-  ```javascript
-  let fruit = prompt("Which fruit to buy?", "apple");
+计算属性
 
-  let bag = {
-    [fruit]: 5, // the name of the property is taken from the variable fruit
+推延创建
+
+```javascript
+let fruit = prompt("Which fruit to buy?", "apple");
+
+let bag = {
+  [fruit]: 5, // the name of the property is taken from the variable fruit
+};
+
+alert(bag.apple); // 5 if fruit="apple"
+```
+
+> `[fruit]`表示用 fruit 的计算值作为属性名
+
+等价形式
+
+```javascript
+let fruit = prompt("Which fruit to buy?", "apple");
+let bag = {};
+
+// take property name from the fruit variable
+bag[fruit] = 5;
+```
+
+---
+
+属性值简写
+
+```javascript
+function makeUser(name, age) {
+  return {
+    name, // same as name: name
+    age, // same as age: age
+    // ...
   };
+}
 
-  alert(bag.apple); // 5 if fruit="apple"
-  ```
-
-  > `[fruit]`表示用 fruit 的计算值作为属性名
-
-  等价形式
-
-  ```javascript
-  let fruit = prompt("Which fruit to buy?", "apple");
-  let bag = {};
-
-  // take property name from the fruit variable
-  bag[fruit] = 5;
-  ```
-
-- 属性值简写
-
-  ```javascript
-  function makeUser(name, age) {
-    return {
-      name, // same as name: name
-      age, // same as age: age
-      // ...
-    };
-  }
-
-  let user = makeUser("John", 30);
-  alert(user.name); // John
-  ```
+let user = makeUser("John", 30);
+alert(user.name); // John
+```
 
 ## 引用和复制
 
 对象通过引用复制, 原始类型通过值复制
 
-- 当且仅当对象为同一对象时, 两个变量才相等
+```js
+objectA == objectB;
+```
 
-- clone 对象
+当且仅当对象为同一对象时, 两个变量才相等
 
-  - 手动, 逐个元素赋值
+---
 
-    - 深层拷贝
+方法
 
-      递归判断属性是否是引用, 进一步递归
+- 手动, 逐个元素赋值
 
-    - lodash
+  - 深层拷贝
 
-      ```javascript
-      let clone = _.cloneDeep(obj);
-      ```
+    递归判断属性是否是引用, 进一步递归
 
-  - 用`Object.assign(dest, [src1, src2, ...])`
+  - lodash
 
-    dest 中的属性会被 src 中的属性覆盖
+    ```javascript
+    let clone = _.cloneDeep(obj);
+    ```
 
-  - `structuredClone`
+- 用`Object.assign(dest, [src1, src2, ...])`
 
-- const 对象
+  dest 中的属性会被 src 中的属性覆盖
 
-  const 是引用(是整个整体), 而对象的属性是可以改变的
+- `structuredClone`
+
+?> const 是引用指针不会变, 而对象的属性是可以改变的
 
 ## method
 
@@ -187,9 +189,9 @@ this 并不取决于方法声明的位置，而是取决于在“点符号前”
 
 ---
 
-箭头函数没有自己的 "this", 采用的是 closure, 当作是普通的变量
+箭头函数没有自己的 "this", 采用的是 closure, 引用上一层的 this 计算值
 
-- [example](../../example/test_func/)
+可以见[测试 this](/example/test_func/README.md)
 
 ---
 
@@ -225,6 +227,8 @@ let user = new User("Jack");
 
 - 构造器函数必须使用 new 来调用
 
+!> new 容易忘记
+
 ---
 
 new.target:判断函数是否是 new 调用
@@ -242,8 +246,6 @@ function User(name) {
 let john = User("John"); // 将调用重定向到新用户
 ```
 
-详细:[构造器模式测试：new.target](https://zh.javascript.info/constructor-new#gou-zao-qi-mo-shi-ce-shi-newtarget)
-
 ---
 
 构造器的 return 规则:
@@ -251,7 +253,9 @@ let john = User("John"); // 将调用重定向到新用户
 - 如果 return 返回的是一个对象，则返回这个对象，而不是 this
 - 如果 return 返回的是一个原始类型，则忽略
 
-## symbol 类型
+> 从头到尾可以看到, 类是通过函数构造的, 是一种语法糖而已, 便于动态生成对象
+
+## symbol
 
 只用两种类型可以作为对象属性键
 
@@ -320,7 +324,7 @@ let user = {
 
 !> 不存在 c++的函数重载
 
-- 转化规则
+- 转化规则 [^modern conversion]
 
   - 没有转化为布尔值, 只有转化为数字和字符串
 
@@ -334,65 +338,10 @@ let user = {
 
     比如`alert(obj)`
 
-- 类型转化
-
-  语境
-
-  hint 指示转化的语境
-
-  - hint == "string"
-
-    当用对象作为属性名时, 会自动转化为字符串
-
-    - `anotherObj[obj]` => obj 转化为字符串
-
-  - hint == "number"
-
-    数学运算的时候
-
-  - hint == "default"
-
-    不确定期望的类型, 类型转化将依赖 default 的来转化
-
----
-
-转化策略:
-
-JavaScript 尝试查找并调用三个对象方法
-
-调用 `obj[Symbol.toPrimitive](hint)`
-
-否则，如果 hint 是 "string" => 尝试调用 obj.toString() 或 obj.valueOf()
-
-> 优先调用 toString(), 然后是 valueOf()
-
-否则，如果 hint 是 "number" 或 "default" => 尝试调用 obj.valueOf() 或 obj.toString()
-
-> 优先调用 valueOf(), 然后是 toString()
-
-> 方法调用是有优先级的
-
-- Symbol.toPrimitive
-
-  ```javascript
-  let user = {
-    name: "John",
-    money: 1000,
-
-    [Symbol.toPrimitive](hint) {
-      alert(`hint: ${hint}`);
-      return hint == "string" ? `{name: "${this.name}"}` : this.money;
-    },
-  };
-
-  // conversions demo:
-  alert(user); // hint: string -> {name: "John"}
-  alert(+user); // hint: number -> 1000
-  alert(user + 500); // hint: default -> 1500
-  ```
-
-  可以用 hint 进行判断当前的语境, 根据不同的语境选择不同的行为
-
 !> 强制要求 => 这些方法的返回类型一定要是原始值
 
 感觉可以偷偷地实现运算符重载, 如果根据原始的数据类型来
+
+## References
+
+1.  [-modern conversion] [Object to primitive conversion](https://javascript.info/object-toprimitive)
