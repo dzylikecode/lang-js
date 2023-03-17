@@ -1,26 +1,24 @@
 # function
 
-函数的高级概念
+## Recursion
 
-For web-developers there are much better-known examples: HTML and XML documents.
-
-In the HTML document, an **HTML-tag** may contain a list of:
-
-- Text pieces.
-- HTML-comments.
-- Other **HTML-tags** (that in turn may contain text pieces/comments or other tags etc).
-
----
-
-链表: linked list
+链表: linked list [^modern recursion]
 
 ```txt
 list = {value, next -> list}
 ```
 
+> 想到了 Haskell
+
+---
+
+HTML 的定义也是递归的
+
+> 觉得这个 Haskell 的语言特性更加明显
+
 ## stack
 
-context, 函数的上下文
+context, 函数的上下文 [^modern stack]
 
 ## scope
 
@@ -50,89 +48,30 @@ context, 函数的上下文
 
 - 闭包
 
-  可以把整个程序看作是一个大的函数，全局变量就是这个函数的局部变量, 整个函数是调用堆栈的根
-
   闭包 => 会记住它的`调用堆栈链`(语法环境链 => 隐藏属性`[[Environment]]`)
+
+example:  
+可以把整个程序看作是一个大的函数，全局变量就是这个函数的局部变量, 整个函数是调用堆栈的根
 
 ### lexical environment
 
-[词法作用域](https://javascript.info/closure#lexical-environment)
-
-When the code wants to access a variable – the inner Lexical Environment is searched first, then the outer one, then the more outer one and so on until the global one.
+When the code wants to access a variable – the inner Lexical Environment is searched first, then the outer one, then the more outer one and so on until the global one. [^modern lexical]
 
 ---
 
-示例
+示例: [Army of functions](https://javascript.info/closure#army-of-functions)
 
-for 循环括号里面声明的变量, 每次循环都是一个新的变量, 只是会把上一次的值保留下来
+while 中每个子函数都会记住相同的`i`, 而最终 i 变成了 5, 所有的输出都是 5
 
-```javascript
-function makeArmy() {
-  let shooters = [];
-
-  let i = 0;
-  while (i < 10) {
-    let shooter = function () {
-      // shooter 函数
-      alert(i); // 应该显示它自己的编号
-    };
-    shooters.push(shooter);
-    i++;
-  }
-
-  return shooters;
-}
-
-let army = makeArmy();
-
-army[0](); // 5
-army[5](); // 5
-```
-
-每个子函数都会记住`i`, 而最终 i 变成了 5, 所有的输出都是 5
-
-```javascript
-function makeArmy() {
-  let shooters = [];
-
-  for (let i = 0; i < 10; i++) {
-    let shooter = function () {
-      // shooter 函数
-      alert(i); // 应该显示它自己的编号
-    };
-    shooters.push(shooter);
-  }
-
-  return shooters;
-}
-
-let army = makeArmy();
-
-army[0](); // 0
-army[5](); // 5
-```
-
-每次循环都是新的 i, 与上一个 i 不是同一个变量
+for 循环, 每次循环都会开辟新的作用域, 所以每次循环都是新的 i, 与上一个 i 不是同一个变量
 
 ---
 
 语法环境
 
-在创建语法环境时, 会预先扫描整个作用域, 找到所有的变量声明, 并将其放入环境中
+示例: [Is variable visible?](https://javascript.info/closure#is-variable-visible)
 
-然后在定义时, 放入对应的值
-
-```javascript
-let x = 1;
-
-function func() {
-  console.log(x); // ?
-
-  let x = 2;
-}
-
-func();
-```
+在创建语法环境时, 会预先扫描整个作用域, 找到所有的变量声明, 并将其放入环境中. 然后在定义时, 放入对应的值
 
 进入函数时, 语法环境知道局部变量`x`的存在, 于是会屏蔽外部的`x`, 所以里面的`x`都是局部变量
 
@@ -140,83 +79,28 @@ func();
 
 ## var
 
-- var 没有块级作用域 => 都是全局变量或函数局部变量
+不推荐使用, 建议了解 [^modern var]
 
-  ```javascript
-  if (true) {
-    var test = true; // (*)
-  }
+```js
+(function () {
+  // code
+})(); // the function executes immediately
+```
 
-  alert(test); // true, the variable lives after if
-  ```
+## global this
 
-  `var`声明的变量会在函数内部或者全局作用域中声明, 但是不会在块级作用域中声明
+默认情况下，这些全局变量内建于语言或环境中 [^modern global this]
 
-- var 允许重复声明
-
-- var 可以在声明前使用
-
-  声明的时候赋值
-
-  ```javascript
-  function sayHi() {
-    alert(phrase);
-
-    var phrase = "Hello";
-  }
-
-  sayHi();
-  ```
-
-  会分裂为两个步骤
-
-  ```javascript
-  function sayHi() {
-    var phrase;
-    alert(phrase);
-
-    phrase = "Hello";
-  }
-
-  sayHi();
-  ```
-
-- IIFE => 弥补以前没有块级作用域的缺陷
-
-  ```javascript
-  (function () {
-    var message = "Hello";
-
-    alert(message); // Hello
-  })();
-  ```
-
-## 全局对象
-
-默认情况下，这些全局变量内建于语言或环境中
-
-在浏览器中，它的名字是 “window”，对 Node.js 而言，它的名字是 “global”
+- browser: window
+- Node.js: global
 
 globalThis 被作为全局对象的标准名称加入到了 JavaScript 中
 
-- 在浏览器中, 全局对象是`window`
-
-  ```javascript
-  alert(window == this); // true
-
-  window.test = 5; // if in browser
-  alert(test); // 5
-  ```
-
 在浏览器中，除非我们使用 modules，否则使用 var 声明的全局函数和变量会成为全局对象的属性
 
-## 函数对象
+## 函数也是对象
 
-- 函数类型是对象
-
-  增/删属性，按引用传递等
-
-一个容易理解的方式是把函数想象成可被调用的“行为对象（action object）”
+A good way to imagine functions is as callable “action objects”.
 
 - 属性-`name`
 
@@ -228,224 +112,114 @@ globalThis 被作为全局对象的标准名称加入到了 JavaScript 中
 
   rest 参数不计入内
 
-- 可以给函数添加属性
+  > 可以模拟一定程度的多态, 可以见[docsify](https://github.com/docsifyjs/docsify/blob/898e6eea7a7d5bf34a428d672d6a1b8c7896d183/src/core/init/lifecycle.js#L42-L72)
 
-  ```javascript
-  function sayHi() {
-    alert("Hi");
-  }
+---
 
-  sayHi.test = 5;
+示例: 可以看看 [markedjs/marked](https://github.com/markedjs/marked/blob/8c7bca87029e1a346232e87ed8f63283069f0c64/src/marked.js#L342-L350). 里面的 marked 是一个函数, 然后用了一些对象
 
-  alert(sayHi.test); // 5
-  ```
+---
 
-  优点 => 可以被外部访问
-
-- 命名函数表达式
-
-  ```javascript
-  let sayHi = function func(who) {
-    if (who) {
-      alert(`Hello, ${who}`);
-    } else {
-      func("Guest"); // use func to re-call itself
-    }
-  };
-
-  sayHi(); // Hello, Guest
-
-  // func is not visible outside of the function
-
-  alert(func); // error, func is not defined (not visible outside of the function)
-  ```
-
-  `func`只在函数内部可见, 仅仅为了内部递归使用, 外部不可调用
+!> 函数表达式的名字是用来递归的
 
 ## new Function
 
-- 语法
+闭包
 
-  ```javascript
-  let func = new Function([arg1, arg2, ...argN], functionBody);
+使用 new Function 创建的函数，它的 `[[Environment]]` 指向全局词法环境，而不是函数所在的外部词法环境 [^modern func new]
+
+## decorator
+
+比如缓存技术 [^modern cache] , 可以适当看看[Decorator](https://refactoring.guru/design-patterns/decorator)设计模式
+
+## forwarding
+
+```js
+let result = func.call(this, x); // "this" is passed correctly now
+```
+
+使用这个比传递进入 object 参数比较好
+
+---
+
+使用 hash 值得思考 [^modern cache args]
+
+---
+
+call 与 apply 仅仅是语法糖的区别
+
+```js
+func.call(context, ...args);
+func.apply(context, args);
+```
+
+可以使用 [bind](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/bind), 那样只能 bind 一次
+
+---
+
+forwarding 转发参数, Borrowing a method. 委托构造等
+
+```js
+function hash() {
+  alert([].join.call(arguments));
+}
+```
+
+!> 注意 arguments 是放在了 context 的位置, 而不是 args.
+
+---
+
+可以看一看一些场景案例:
+
+- [Debounce decorator](https://javascript.info/call-apply-decorators#debounce-decorator)
+
+  固定延时 1000ms
+
+  ```js
+  setTimeout(() => f("b"), 200);
   ```
 
-- 变体
+  意味着 1200ms 后响应, 如果后续有调用,
 
-  ```javascript
-  new Function("a", "b", "return a + b"); // 基础语法
-  new Function("a,b", "return a + b"); // 逗号分隔
-  new Function("a , b", "return a + b"); // 逗号和空格分隔
+  ```js
+  setTimeout(() => f("c"), 500);
   ```
 
-- 闭包
+  则 1200ms 的不会相应, 而是 1500ms 的会相应
 
-  使用 new Function 创建的函数，它的 `[[Environment]]` 指向全局词法环境，而不是函数所在的外部词法环境
+  > 给一定的冷静
 
-## 调度
+- Throttle decorator
 
-- [setTimeout](https://developer.mozilla.org/zh-CN/docs/Web/API/setTimeout)
+  每 1000ms 做一次总结, 只总结 1000ms 里面最近的一次
 
-  ```javascript
-  let timerId = setTimeout(func|code, [delay], [arg1], [arg2], ...)
+## partial
 
-  clearTimeout(timerId);
-  ```
+partial application is useful when we have a very generic function and want a less universal variant of it for convenience. [^modern bind]
 
-  `setTimeout`返回一个定时器的标识符, 用于取消定时器
-
-  可以嵌套使用, 达到 setInterval 的效果 => [案例](https://zh.javascript.info/settimeout-setinterval#mei-miao-shu-chu-yi-ci)
-
-- [setInterval](https://developer.mozilla.org/zh-CN/docs/Web/API/setInterval)
-
-  ```javascript
-  let timerId = setInterval(func|code, [delay], [arg1], [arg2], ...)
-  clearInterval(timerId);
-  ```
-
-  `setInterval`返回一个定时器的标识符, 用于取消定时器
-
-## 函数绑定
-
-- 应用场景
-
-  ```javascript
-  let user = {
-    firstName: "John",
-    sayHi() {
-      alert(`Hello, ${this.firstName}!`);
-    },
-  };
-
-  setTimeout(() => user.sayHi(), 1000);
-
-  // ……user 的值在不到 1 秒的时间内发生了改变
-  user = {
-    sayHi() {
-      alert("Another user in setTimeout!");
-    },
-  };
-
-  // Another user in setTimeout!
-  ```
-
-  `user`的改变,导致任务调度时, 使用了错误的对象
-
-- 解决
-
-  ```javascript
-  let user = {
-    firstName: "John",
-    sayHi() {
-      alert(`Hello, ${this.firstName}!`);
-    },
-  };
-
-  setTimeout(user.sayHi.bind(user), 1000);
-  ```
-
-  `bind`返回一个新的函数, 该函数的`this`指向`user`
-
-  `bind`的参数会被当作`this`的参数
-
-- [bind](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)
-
-  ```javascript
-  let bound = func.bind(context, [arg1], [arg2], ...);
-  ```
-
-  `bind`返回一个新的函数, 该函数的`this`指向`context`, 并且会预先传入`arg1`, `arg2`等参数
-
-  - bind 是硬绑定, 仅第一次生效
-
-    ```javascript
-    function f() {
-      alert(this.name);
-    }
-
-    f = f.bind({ name: "John" }).bind({ name: "Ann" });
-
-    f(); // John
-    ```
-
-    `bind`可以多次调用, 但是只有第一次调用会生效
-
-    ```javascript
-    function f() {
-      alert(this.name);
-    }
-
-    let user = { name: "John" };
-    let fbound = f.bind(user);
-
-    fbound(); // John
-
-    user = { name: "Ann" };
-
-    fbound(); // John, the context is fixed at fbound creation time
-    ```
-
-    `bind`的`this`是固定的, 无法改变
-
-- 偏函数(partial function)
-
-  ```javascript
-  function mul(a, b) {
-    return a * b;
-  }
-
-  let double = mul.bind(null, 2);
-
-  alert(double(3)); // = mul(2, 3) = 6
-  alert(double(4)); // = mul(2, 4) = 8
-  alert(double(5)); // = mul(2, 5) = 10
-  ```
-
-  `bind`的第一个参数为`null`, 表示不绑定`this`
-
-  `bind`的第二个参数开始, 表示预先传入的参数
-
-  `double`就是一个偏函数, 传入`2`作为`mul`的第一个参数
-
-  - 应用
-
-    当我们有一个非常通用的函数，并希望有一个通用型更低的该函数的变体时，偏函数会非常有用
-
-## 深入理解箭头函数
+## arrow
 
 - 箭头函数没有 this
 
   - 它会获取外部语法环境的 this
 
-    ```javascript
-    let group = {
-      title: "Our Group",
-      students: ["John", "Pete", "Alice"],
-
-      showList() {
-        this.students.forEach((student) => alert(this.title + ": " + student));
-      },
-    };
-    ```
-
-    `alert`的`this`是`showList`的`this`
-
   - 它不能被`new`
 
 - 箭头函数没有`arguments`
 
-  ```javascript
-  let group = {
-    title: "Our Group",
-    students: ["John", "Pete", "Alice"],
+  会引用上面一个层级的 arguments
 
-    showList() {
-      let f = () => alert(arguments[0]);
-      f();
-    },
-  };
+That’s because they are meant for short pieces of code that do not have their own “context”, but rather work in the current one. And they really shine in that use case. [^modern arrow]
 
-  group.showList(1, 2); // 1
-  ```
+## References
 
-  `arguments`是`showList`的`arguments`
+1. [-modern recursion] [-modern stack] [Recursion and stack](https://javascript.info/recursion)
+2. [-modern lexical] [Lexical Environment](https://javascript.info/closure#lexical-environment)
+3. [-modern global this] [Global object](https://javascript.info/global-object)
+4. [-modern var] [The old "var"](https://javascript.info/var)
+5. [Function object, NFE](https://javascript.info/function-object)
+6. [-modern func new] [The "new Function" syntax](https://javascript.info/new-function)
+7. [-modern cache] [modern js cache](https://javascript.info/call-apply-decorators#transparent-caching)
+8. [-modern cache args] [Decorators and forwarding, call/apply](https://javascript.info/call-apply-decorators#going-multi-argument)
+9. [-modern arrow] [Arrow functions revisited](https://javascript.info/arrow-functions)
+10. [-modern bind] [Function binding](https://javascript.info/bind)

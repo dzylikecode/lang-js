@@ -180,7 +180,7 @@ let title, width, height;
 
   在函数内部，可以使用 arguments 变量来访问所有参数。它是一个类似数组的对象.
 
-  箭头函数没有 arguments 变量
+  !> 箭头函数没有 arguments 变量
 
 ### Spread 语法
 
@@ -211,5 +211,6 @@ let title, width, height;
 
 ## References
 
-1.  [-modern destructing] [Nested destructuring](https://javascript.info/destructuring-assignment#nested-destructuring)
-2.  [-modern smart] [Smart function parameters](https://javascript.info/destructuring-assignment#smart-function-parameters)
+1. [-modern destructing] [Nested destructuring](https://javascript.info/destructuring-assignment#nested-destructuring)
+2. [-modern smart] [Smart function parameters](https://javascript.info/destructuring-assignment#smart-function-parameters)
+3. [Rest parameters and spread syntax](https://javascript.info/rest-parameters-spread)
