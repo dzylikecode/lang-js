@@ -1,13 +1,6 @@
 # Promise-async/await
 
-## 简介-回调
-
-由于浏览器常常是异步加载, 为满足逻辑的顺序, 需要用回调
-
-- 回调应当处理错误
-- 避免厄运金字塔的描述
-
-  分割为函数调用
+相当于 Haskell 的 do-notation
 
 ## Promise
 
@@ -283,6 +276,8 @@ let promise = new Promise(function (resolve, reject) {
   - await 只要对象形似`thenables`
 
     只要对面能有 then 方法, 得到的结果就是 then 接受的参数
+
+    !> 只需要 then
 
   > 可以看作出了一个 promise, 那么它就是微任务, 想象成是一个新的线程, 后续的代码会立即执行, 而不会等待线程执行完成结果
 
