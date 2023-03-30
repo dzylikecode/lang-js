@@ -7,27 +7,6 @@
   - 导出[`export`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/export)
   - 导入[`import`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/import)
 
-- 使用导入和导出的限制
-
-  意味着不是普通脚本, 而是模块
-
-  !> 导入的变量相当于 const
-
-- 形式
-
-  ```html
-  <script type="module">
-    import { sayHi } from "./say.js";
-
-    document.body.innerHTML = sayHi("John");
-  </script>
-  ```
-
-  ```html
-  <script type="module" src="user.js"></script>
-  <script type="module" src="hello.js"></script>
-  ```
-
 - 模块具有模块级作用域
 
   不像普通脚本, 引入后是其他标签内都可见
@@ -269,3 +248,5 @@ export { default } from "./user.js"; // to re-export the default export
    // lib/chai.js
    export const assert = window.assert;
    ```
+
+## References

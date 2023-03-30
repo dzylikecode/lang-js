@@ -11,6 +11,7 @@
 - [function](/docs/JavaScript/function.md)
 - [proxy](/docs/JavaScript/proxy.md)
 - [prototype](/docs/JavaScript/prototype.md)
+- [promise](/docs/JavaScript/promise.md)
 - [async](/docs/JavaScript/ch11/README.md)
 - [迭代器](/docs/JavaScript/iterables.md)
 - [生成器](/docs/JavaScript/generator.md)

@@ -1,33 +1,22 @@
 # generator
 
-generator
+和 lua 的[协程](https://www.lua.org/pil/9.html)很相似
 
-创建数据流
+生成器可以构造一个无穷序列供外部使用, 用 break 来终止
 
-- 函数面前添加`*`
-- 通过`yield`发送数据流
+- 数据格式
 
-  - 数据格式
+  `{value: result, done: true/false}`
 
-    `{value: result, done: true/false}`
+- 是双向的
 
-  - 是双向的
+  通过`next(result)`, 让`let res = yield "2+2=?"`得到 `result` 值
 
-    通过`next(result)`, 让`let res = yield "2+2=?"`得到 `result` 值
+  通过`throw(err)`, 传递错误
 
-    通过`throw(err)`, 传递错误
+- 透明嵌入(委托构造)
 
-  - 透明嵌入(委托构造)
-
-    `yield* generateSequence()`
-
-- generator 具有迭代性
-
-  - 可以使用`for...of`
-
-    但是 return 的值会被忽略
-
-  - 可以使用`return(value)`方法打断迭代
+  `yield* generateSequence()`
 
 ---
 
@@ -47,4 +36,10 @@ generator
 
   !> `result = await generator.next()`来获得值
 
-- 实际的例子: [分页的数据](https://zh.javascript.info/async-iterators-generators#shi-ji-de-li-zi-fen-ye-de-shu-ju)
+---
+
+[Real-life example: paginated data](https://javascript.info/async-iterators-generators#real-life-example-paginated-data)中的无穷序列很有意思, 很有启发
+
+## References
+
+1. [Generators](https://javascript.info/generators)
